@@ -15,13 +15,13 @@ export default function App() {
     <div className="flex flex-1 flex-col h-full gap-3">
       <div className="flex w-full justify-between">
         <FilesSlider photos={photos} setPhotos={setPhotos} />
-        <SquarePlus className="w-12 h-12 my-auto ml-2 hover:text-green-500" 
+        <SquarePlus className="w-12 h-12 my-auto ml-2 hover:text-green-500 cursor-pointer" 
           onClick={() => {
             setPhotos([...photos, { file: 'test', id: fileId }]);
             setFileId(fileId + 1);
           }
         }/>
-        <SquareX className="w-12 h-12 my-auto ml-2 hover:text-red-500" onClick={() => { setPhotos([]); setFileId(1) }} />
+        <SquareX className="w-12 h-12 my-auto ml-2 hover:text-red-500 cursor-pointer" onClick={() => { setPhotos([]); setFileId(1) }} />
       </div>
       <Container />
     </div>

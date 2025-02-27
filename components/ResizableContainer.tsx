@@ -14,8 +14,8 @@ export default function Container() {
       className="rounded-lg border md:min-w-[450px]"
     >
       <ResizablePanel defaultSize={50} minSize={10}>
-        <div className="flex h-full items-center justify-center p-6">
-          <Image src={'/placeholder.jpg'} alt="image" width={0} height={0} sizes="100vh" className="max-w-[800px] max-h-[600px] h-full w-full object-contain"/>
+        <div className="flex h-full items-center justify-center p-6 max-h-[650px]">
+          <Image src={'/placeholder.jpg'} alt="image" width={0} height={0} sizes="100vh" className="cursor-pointer max-w-fit max-h-fit h-full w-full object-contain"/>
         </div>
       </ResizablePanel>
       <ResizableHandle />
