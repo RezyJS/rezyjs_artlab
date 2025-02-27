@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`bg-[var(--dark-color)] text-[var(--light-color)] ${ubuntu.variable} antialiased`}
+        className={`bg-[var(--dark-color)] text-[var(--light-color)] ${ubuntu.variable} antialiased `}
       >
         <Layout>
           {children}

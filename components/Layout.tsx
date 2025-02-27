@@ -28,7 +28,7 @@ import { Separator } from "@/components/ui/separator"
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col max-w-[100vw] w-[100vw] min-w-[100vw] max-h-[100vh] h-[100vh] min-h-[100vh]">
-      <div className="p-2 bg-[var(--dark-color)]">
+      <div className="p-2 bg-[var(--dark-color)] gap-2">
         <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
@@ -67,8 +67,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </NavigationMenuList>
         </NavigationMenu>
       </div>
-      <Separator className="mx-auto w-[99vw] " />
-      <div className="flex justify-center items-center flex-1">
+      <Separator className="mx-auto w-[99vw]"/>
+      <div className="flex justify-center items-center flex-1 w-[100vw] p-3">
         {children}
       </div>
     </div>
