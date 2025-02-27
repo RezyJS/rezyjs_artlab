@@ -16,7 +16,7 @@ export default function App() {
       <div className="flex w-full justify-between">
         <FilesSlider photos={photos} setPhotos={setPhotos} />
         <SquarePlus className="w-12 h-12 my-auto ml-2 hover:text-green-500" 
-        onClick={() => {
+          onClick={() => {
             setPhotos([...photos, { file: 'test', id: fileId }]);
             setFileId(fileId + 1);
           }

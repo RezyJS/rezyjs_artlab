@@ -21,7 +21,7 @@ export default function Container() {
       <ResizableHandle />
       <ResizablePanel defaultSize={50} minSize={10}>
         <ResizablePanelGroup direction="vertical">
-          <ResizablePanel defaultSize={25}>
+          <ResizablePanel defaultSize={25} minSize={10}>
             <div className="flex h-full items-center justify-center p-6">
               <span className="font-semibold">Two</span>
             </div>

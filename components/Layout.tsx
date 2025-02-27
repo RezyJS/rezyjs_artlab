@@ -14,9 +14,9 @@ import {
 } from "@/components/ui/navigation-menu"
 
 import {
-  CirclePlus,
-  Repeat,
-  CircleX,
+  FlipHorizontal2,
+  RotateCcw,
+  RotateCw,
   ZoomIn,
   FileText
 } from "lucide-react"
@@ -32,30 +32,27 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-[var(--dark-color)] data-[state=open]:text-white hover:data-[state=open]:text-black hover:bg-[var(--accent-color)] data-[state=open]:bg-[var(--accent-color)] hover:data-[state=open]:bg-[var(--accent-color)]">
-              File
-            </NavigationMenuTrigger>
-            <NavigationMenuContent className="bg-[var(--dark-color)] border-[var(--accent-color)]">
-              <ul className="flex flex-col gap-2 p-2 md:max-w-[400px] lg:max-w-[500px]">
-                <Button className="flex justify-between bg-[var(--dark-color)] hover:bg-[var(--accent-color)]">
-                  New file
-                  <CirclePlus/>
-                </Button>
-                <Button className="flex justify-between bg-[var(--dark-color)] hover:bg-[var(--accent-color)]">
-                  Change file                 
-                  <Repeat />
-                </Button>
-                <Button variant={'destructive'} className="flex justify-between hover:bg-destructive/70">
-                  Delete current file
-                  <CircleX />
-                </Button>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
             <Button className={navigationMenuTriggerStyle()}>
               Enlarge
               <ZoomIn />
+            </Button>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Button className={navigationMenuTriggerStyle()}>
+              Mirror
+              <FlipHorizontal2 />
+            </Button>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Button className={navigationMenuTriggerStyle()}>
+              Turn Left
+              <RotateCcw />
+            </Button>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Button className={navigationMenuTriggerStyle()}>
+              Turn Right
+              <RotateCw />
             </Button>
           </NavigationMenuItem>
           <NavigationMenuItem>
