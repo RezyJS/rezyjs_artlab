@@ -9,8 +9,6 @@ export class Stack {
 
     this.stack.push(photo);
     this.pointer++; 
-
-    console.info(this.stack)
   }
 
   makeNew() {
@@ -36,7 +34,7 @@ export class Stack {
   }
 
   getCurrentPhoto() {
-    console.info(`Stack ptr: ${this.pointer} | stack: ${this.stack}`)
+    console.info(`Stack ptr: ${this.pointer} | stack: ${JSON.stringify(this.stack)}`)
     if (this.pointer > -1) {
       return this.stack[this.pointer];
     }

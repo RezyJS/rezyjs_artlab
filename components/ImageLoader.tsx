@@ -3,26 +3,11 @@
 'use client'
 
 import StackList from "@/lib/structures";
-import { useEffect, useState } from "react";
-import { imageOperation, loadNewPhoto } from "@/lib/photos";
+import { loadNewPhoto } from "@/lib/photos";
 import { toast } from "sonner";
 
-export default function ImageLoader({ files }: { files: StackList }) {
-  
-  const [picture, setPicture] = useState<string>('/placeholder.jpg');
-
-  useEffect(() => {
-    if (files.currentFile()) {
-      if (!files.currentFile()?.isEmpty()) {
-        imageOperation(files.currentFile()!.getCurrentPhoto()!, null, files.currentFile()!, setPicture);
-      } else {
-        setPicture('/placeholder.jpg');
-      }
-    } else {
-      setPicture('/placeholder.jpg')
-    }
-  }, [files])
-
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+export default function ImageLoader({ files, picture, setPicture }: { files: StackList, picture: string, setPicture: Function }) {
   return (
     <label className="flex h-full items-center justify-center p-6 max-h-[650px]">
       <img src={picture} alt="image" width={0} height={0} sizes="100vh" className="cursor-pointer max-w-fit max-h-fit h-full w-full object-contain"/>
@@ -40,11 +25,9 @@ export default function ImageLoader({ files }: { files: StackList }) {
             }
 
             if (!files.currentFile()) {
-              console.info('toasting')
               toast.error("Error occurred!", {
                 description: "Create a File to continue!",
               });
-              console.info(files.currentFile());
               return;
             }
 

@@ -29,7 +29,8 @@ export default function App() {
         />
       </div>
       <Container 
-        stacks={stacks} 
+        stacks={stacks}
+        setStacks={setStacks} 
       />
     </div>
   );
