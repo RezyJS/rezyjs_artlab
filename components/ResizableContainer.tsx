@@ -3,33 +3,30 @@ import {
   ResizablePanel,
   ResizablePanelGroup
 } from "@/components/ui/resizable";
+import ImageLoader from "./ImageLoader";
+import StackList from "@/lib/structures";
 
-import Image from "next/image"; 
-
-// TODO: Get image as args
-export default function Container() {
+export default function Container({ stacks }: { stacks: StackList }) {
   return (
     <ResizablePanelGroup
       direction="horizontal"
       className="rounded-lg border md:min-w-[450px]"
     >
-      <ResizablePanel defaultSize={50} minSize={10}>
-        <div className="flex h-full items-center justify-center p-6 max-h-[650px]">
-          <Image src={'/placeholder.jpg'} alt="image" width={0} height={0} sizes="100vh" className="cursor-pointer max-w-fit max-h-fit h-full w-full object-contain"/>
-        </div>
+      <ResizablePanel defaultSize={50} minSize={20} className="flex flex-col justify-center" >
+        <ImageLoader files={stacks} />
       </ResizablePanel>
       <ResizableHandle />
-      <ResizablePanel defaultSize={50} minSize={10}>
+      <ResizablePanel defaultSize={50} minSize={20}>
         <ResizablePanelGroup direction="vertical">
-          <ResizablePanel defaultSize={25} minSize={10}>
-            <div className="flex h-full items-center justify-center p-6">
-              <span className="font-semibold">Two</span>
+          <ResizablePanel minSize={20} maxSize={20}>
+            <div className="flex h-full items-center justify-start p-6">
+              <span className="font-semibold">Groups of functions</span>
             </div>
           </ResizablePanel>
-          <ResizableHandle />
-          <ResizablePanel defaultSize={75} minSize={10}>
-            <div className="flex h-full items-center justify-center p-6">
-              <span className="font-semibold">Three</span>
+          <div className="w-full h-[0.5px] bg-white"></div>
+          <ResizablePanel defaultSize={75} minSize={20}>
+            <div className="flex h-full items-center justify-start p-6">
+              <span className="font-semibold">Functions</span>
             </div>
           </ResizablePanel>
         </ResizablePanelGroup>

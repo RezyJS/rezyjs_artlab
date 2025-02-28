@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Ubuntu } from "next/font/google";
 import "./globals.css";
 import Layout from "@/components/Layout";
+import { Toaster } from "sonner";
 
 const ubuntu = Ubuntu({
   variable: "--font-ubuntu",
@@ -27,6 +28,7 @@ export default function RootLayout({
         <Layout>
           {children}
         </Layout>
+        <Toaster theme="dark" closeButton/>
       </body>
     </html>
   );
