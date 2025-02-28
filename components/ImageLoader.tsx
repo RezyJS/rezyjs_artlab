@@ -18,6 +18,8 @@ export default function ImageLoader({ files }: { files: StackList }) {
       } else {
         setPicture('/placeholder.jpg');
       }
+    } else {
+      setPicture('/placeholder.jpg')
     }
   }, [files])
 
