@@ -2,7 +2,7 @@ import { toast } from "sonner";
 import { Stack } from "./structures";
 
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
-export const imageOperation = (image: HTMLImageElement, callback: Function | null, stack: Stack, setPicture: Function) => {
+export const imageOperation = (image: HTMLImageElement, callback: Function | null, stack: Stack, setPicture: Function, ...rest: (number | undefined)[]) => {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d')!;
 
@@ -15,7 +15,7 @@ export const imageOperation = (image: HTMLImageElement, callback: Function | nul
   const pixels = imageData.data;
 
   if (callback !== null) {
-    callback(pixels);
+    callback(pixels, ...rest);
   }
 
   ctx.putImageData(imageData, 0, 0);
@@ -42,21 +42,93 @@ const grayScale = (pixels: Uint8ClampedArray<ArrayBufferLike>) => {
   }
 }
 
-const lighter = (pixels: Uint8ClampedArray<ArrayBufferLike>) => {
+const brightness = (pixels: Uint8ClampedArray<ArrayBufferLike>, ...rest: number[]) => {
   const clamp = (num: number) => Math.min(Math.max(num, 0), 255);
-  
-  // TODO: add slider
-  const brightness = 10;
+
+  const brightnessValue = rest[0];
 
   for (let i = 0; i < pixels.length; i += 4) {
-    const red = clamp(pixels[i] + brightness);
-    const green = clamp(pixels[i + 1] + brightness);
-    const blue = clamp(pixels[i + 2] + brightness);
+    const red = clamp(pixels[i] + brightnessValue);
+    const green = clamp(pixels[i + 1] + brightnessValue);
+    const blue = clamp(pixels[i + 2] + brightnessValue);
     // const alpha = pixels[i + 3];
 
     pixels[i] = red;
     pixels[i + 1] = green;
     pixels[i + 2] = blue;
+  }
+}
+
+const negative = (pixels: Uint8ClampedArray<ArrayBufferLike>, ...rest: number[]) => {
+
+  const negative = rest[0];
+
+  for (let i = 0; i < pixels.length; i += 4) {
+    const red = pixels[i] >= negative ? 255 - pixels[i] : pixels[i];
+    const green = pixels[i + 1] >= negative ? 255 - pixels[i + 1] : pixels[i + 1];
+    const blue = pixels[i + 2] >= negative ? 255 - pixels[i + 2] : pixels[i + 2];
+    // const alpha = pixels[i + 3];
+
+    pixels[i] = red;
+    pixels[i + 1] = green;
+    pixels[i + 2] = blue;
+  }
+}
+
+const binary = (pixels: Uint8ClampedArray<ArrayBufferLike>, ...rest: number[]) => {
+  const binary = rest[0];
+
+  for (let i = 0; i < pixels.length; i += 4) {
+    const red = pixels[i] >= binary ? 255 : 0;
+    const green = pixels[i + 1] >= binary ? 255 : 0;
+    const blue = pixels[i + 2] >= binary ? 255 : 0;
+    // const alpha = pixels[i + 3];
+
+    pixels[i] = red;
+    pixels[i + 1] = green;
+    pixels[i + 2] = blue;
+  }
+}
+
+export const makeBrighter = (brightnessValue: number, stack: Stack, setPicture: Function) => {
+  if (stack === null || stack.isEmpty()) {
+    toast.error("Error occurred!", {
+      description: "Create a File and Load a photo to continue!",
+    });
+    return;
+  }
+
+  const image = stack.getCurrentPhoto();
+  if (image instanceof HTMLImageElement) {
+    imageOperation(image, brightness, stack, setPicture, brightnessValue);
+  }
+}
+
+export const makeNegative = (negativeValue: number, stack: Stack, setPicture: Function) => {
+  if (stack === null || stack.isEmpty()) {
+    toast.error("Error occurred!", {
+      description: "Create a File and Load a photo to continue!",
+    });
+    return;
+  }
+
+  const image = stack.getCurrentPhoto();
+  if (image instanceof HTMLImageElement) {
+    imageOperation(image, negative, stack, setPicture, negativeValue);
+  }
+}
+
+export const makeBinary = (binaryValue: number, stack: Stack, setPicture: Function) => {
+  if (stack === null || stack.isEmpty()) {
+    toast.error("Error occurred!", {
+      description: "Create a File and Load a photo to continue!",
+    });
+    return;
+  }
+
+  const image = stack.getCurrentPhoto();
+  if (image instanceof HTMLImageElement) {
+    imageOperation(image, binary, stack, setPicture, binaryValue);
   }
 }
 
@@ -72,8 +144,8 @@ export const processFile = (operation: string, stack: Stack, setPicture: Functio
   if (image instanceof HTMLImageElement) {
     if (operation === 'grayScale') {
       imageOperation(image, grayScale, stack, setPicture);
-    } else if (operation === 'lighter') {
-      imageOperation(image, lighter, stack, setPicture);
+    } else if (operation === 'brightness') {
+      imageOperation(image, brightness, stack, setPicture);
     } else {
       imageOperation(image, null, stack, setPicture);
     }

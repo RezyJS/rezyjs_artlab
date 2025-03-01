@@ -1,42 +1,49 @@
 export class Stack {
   stack: HTMLImageElement[] = [];
-  pointer: number = -1;
+  #pointer: number = -1;
 
   add(photo: HTMLImageElement) {
-    if (this.pointer < this.stack.length - 1) {
-      this.stack.length = this.pointer + 1;
+    if (this.#pointer < this.stack.length - 1) {
+      this.stack.length = this.#pointer + 1;
     }
 
     this.stack.push(photo);
-    this.pointer++; 
+    this.#pointer++; 
+  }
+
+  isLast() {
+    return this.#pointer === this.stack.length - 1;
+  }
+
+  isFirst() {
+    return this.#pointer === 0;
   }
 
   makeNew() {
     this.stack.length = 0;
-    this.pointer = -1;
+    this.#pointer = -1;
   }
 
   reset() {
     this.stack.length = 1;
-    this.pointer = 0;
+    this.#pointer = 0;
   }
 
   revert() {
-    if (this.pointer > 0) {
-      this.pointer--;
+    if (this.#pointer > 0) {
+      this.#pointer--;
     }
   }
 
   undoRevert() {
-    if (this.pointer < this.stack.length - 1) {
-      this.pointer++;
+    if (this.#pointer < this.stack.length - 1) {
+      this.#pointer++;
     }
   }
 
   getCurrentPhoto() {
-    console.info(`Stack ptr: ${this.pointer} | stack: ${JSON.stringify(this.stack)}`)
-    if (this.pointer > -1) {
-      return this.stack[this.pointer];
+    if (this.#pointer > -1) {
+      return this.stack[this.#pointer];
     }
 
     return null;
@@ -100,8 +107,6 @@ export default class StackList {
       this.#currentStack = this.stackList.length;
       this.stackList.push({ id: this.#fileId++, stack: new Stack(), color: 'text-[var(--accent-color)]' });
     }
-    console.info(this.stackList)
-    console.info(this.#currentStack)
   }
 
   delFile(idx: number) {
