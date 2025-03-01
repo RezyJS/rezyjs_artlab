@@ -4,7 +4,8 @@ import {
   GrayScaleButton,
   BrightnessButton,
   NegativeButton,
-  BinarizationButton
+  BinarizationButton,
+  HistogramButton
 } from '@/components/Buttons'
 
 export default function FirstSeminar({ stacks, setPicture }: { stacks: StackList, setPicture: Function }) {
@@ -15,9 +16,13 @@ export default function FirstSeminar({ stacks, setPicture }: { stacks: StackList
       <NegativeButton stacks={stacks} setPicture={setPicture} />
       <BinarizationButton stacks={stacks} setPicture={setPicture} />
       {/* TODO: Contrast */}
-      <NegativeButton stacks={stacks} setPicture={setPicture} />
+      {/* <NegativeButton stacks={stacks} setPicture={setPicture} /> */}
       {/* TODO: Histogram */}
-      <NegativeButton stacks={stacks} setPicture={setPicture} />
+      {
+        (stacks.currentFile() !== null && !stacks.currentFile()?.isEmpty()) ?
+        <HistogramButton stacks={stacks} setPicture={setPicture} /> :
+        <></>
+      }
     </div>
   );
 }

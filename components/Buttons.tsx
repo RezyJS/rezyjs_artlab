@@ -19,8 +19,16 @@ import {
   Moon,
   ArrowDownUp,
   Binary,
+  ChartColumnBig,
 } from 'lucide-react'
 import StackList from "@/lib/structures";
+import { 
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogTitle
+} from "@/components/ui/dialog";
+import Histogram from "@/components/HistogramComponent";
 
 const MyDefaultButton = ({ text, callback, children }: { text: string, callback: Function, children?: React.ReactNode }) => (
   <Button
@@ -127,3 +135,22 @@ export const BinarizationButton = ({ stacks, setPicture }: defaultButtonNeeds) =
     </MyButtonWithPopover>
   );
 }
+
+export const HistogramButton = ({ stacks }: defaultButtonNeeds) => (
+  <Dialog>
+    <DialogTrigger asChild>
+      <div className='flex justify-evenly'>
+        <MyDefaultButton 
+          text='Histogram'
+          callback={() => {}}
+        >
+          <ChartColumnBig />
+        </MyDefaultButton>
+      </div>
+    </DialogTrigger>
+    <DialogContent className="min-w-[90vw] max-w-[90vw] h-[90vh]">
+      <DialogTitle>Histogram</DialogTitle>
+      <Histogram stacks={stacks}/>
+    </DialogContent>
+  </Dialog>
+)
