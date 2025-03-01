@@ -54,7 +54,7 @@ export default function Histogram({ stacks }: { stacks: StackList }) {
   const data: ChartData = getPixels(stacks);
 
   return (
-    <ChartContainer config={chartConfig} className="w-full h-[80vh]">
+    <ChartContainer config={chartConfig} className="w-[80vw] h-[80vh]">
       <BarChart accessibilityLayer data={data}>
         <CartesianGrid vertical={false} />
         <XAxis

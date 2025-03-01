@@ -148,7 +148,7 @@ export const HistogramButton = ({ stacks }: defaultButtonNeeds) => (
         </MyDefaultButton>
       </div>
     </DialogTrigger>
-    <DialogContent className="min-w-[90vw] max-w-[90vw] h-[90vh]">
+    <DialogContent className="min-w-[90vw] max-w-[90vw] h-[90vh] flex flex-col justify-center items-center">
       <DialogTitle>Histogram</DialogTitle>
       <Histogram stacks={stacks}/>
     </DialogContent>

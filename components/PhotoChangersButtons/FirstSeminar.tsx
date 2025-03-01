@@ -10,7 +10,7 @@ import {
 
 export default function FirstSeminar({ stacks, setPicture }: { stacks: StackList, setPicture: Function }) {
   return (
-    <div className="grid grid-cols-3 gap-5">
+    <div className="container grid w-max gap-5 p-6 h-full">
       <GrayScaleButton stacks={stacks} setPicture={setPicture} />
       <BrightnessButton stacks={stacks} setPicture={setPicture} />
       <NegativeButton stacks={stacks} setPicture={setPicture} />
