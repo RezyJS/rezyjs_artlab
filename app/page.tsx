@@ -11,7 +11,7 @@ export default function App() {
   const [stacks, setStacks] = useState<StackList>(new StackList([]));
 
   return (
-    <div className="flex flex-1 flex-col h-full gap-3">
+    <div className="flex flex-1 flex-col h-full w-full gap-3">
       <div className="flex w-full justify-between">
         <FilesSlider
           stacks={stacks}
