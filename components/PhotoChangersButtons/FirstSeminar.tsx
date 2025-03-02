@@ -16,11 +16,7 @@ export default function FirstSeminar({ stacks, setPicture }: { stacks: StackList
         <NegativeButton stacks={stacks} setPicture={setPicture} />
         <BinarizationButton stacks={stacks} setPicture={setPicture} />
         <ContrastButton stacks={stacks} setPicture={setPicture} />
-        {
-          (stacks.currentFile() !== null && !stacks.currentFile()?.isEmpty()) ?
-            <HistogramButton stacks={stacks} setPicture={setPicture} /> :
-            <></>
-        }
+        <HistogramButton stacks={stacks} setPicture={setPicture} />
       </div>
     </div>
   );

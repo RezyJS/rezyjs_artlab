@@ -51,6 +51,10 @@ const getPixels = (stacks: StackList): ChartData => {
 
 export default function Histogram({ stacks }: { stacks: StackList }) {
 
+  if (stacks.currentFile() === null || stacks.currentFile()!.isEmpty()) {
+    return <p>Load a file!</p>;
+  }
+
   const data: ChartData = getPixels(stacks);
 
   return (
