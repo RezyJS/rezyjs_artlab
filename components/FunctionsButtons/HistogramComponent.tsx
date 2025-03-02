@@ -32,19 +32,30 @@ const getPixels = (stacks: StackList): ChartData => {
 
   const imageData = ctx!.getImageData(0, 0, canvas.width, canvas.height).data;
 
-  const pixels = [];
+  const pixels: number[] = [];
   let amount = 0;
 
-  for (let i = 0; i < imageData.length; i += 4) {
-    if (pixels[imageData[i]] === undefined) pixels[imageData[i]] = 1;
-    else pixels[imageData[i]] += 1;
+  imageData.forEach((val: number) => {
+    if (pixels[val] === undefined) {
+      pixels[val] = 0;
+    }
+
+    pixels[val] += 1;
     ++amount;
-  }
+  });
 
   const answer: ChartData = [];
   for (let i = 0; i < pixels.length; ++i) {
-    answer.push({ pixel_id: i, value: pixels[i] / amount * 100 });
+    const value = pixels[i] / amount * 100;
+    if (isNaN(value)) {
+      answer.push({ pixel_id: i, value: 0 });
+    } else {
+      answer.push({ pixel_id: i, value: value });
+    }
   }
+
+  console.info(`pixels: ${pixels}`)
+  console.info(answer);
 
   return answer;
 }
