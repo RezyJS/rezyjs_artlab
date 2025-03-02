@@ -1,12 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
 import StackList from "@/lib/structures";
-import {
-  GrayScaleButton,
-  BrightnessButton,
-  NegativeButton,
-  BinarizationButton,
-  HistogramButton
-} from '@/components/Buttons'
+import { GrayScaleButton } from "../FunctionsButtons/GrayScaleButton";
+import { BrightnessButton } from "../FunctionsButtons/BrightnessButton";
+import { NegativeButton } from "../FunctionsButtons/NegativeButton";
+import { BinarizationButton } from "../FunctionsButtons/BinarizationButton";
+import { HistogramButton } from "../FunctionsButtons/HistogramButton";
 
 export default function FirstSeminar({ stacks, setPicture }: { stacks: StackList, setPicture: Function }) {
   return (
