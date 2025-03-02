@@ -5,9 +5,11 @@ import {
   ResizableHandle
 } from '@/components/ui/resizable';
 import ImageLoader from '@/components/ImageLoader';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
-import FirstSeminar from "./PhotoChangersButtons/FirstSeminar";
 import StackList from '@/lib/structures';
+import {
+  Horizontal,
+  Vertical
+} from './ScrollMenuNavigation'
 
 export const HorizontalView = (
   { stacks, picture, setPicture, className }: { stacks: StackList, picture: string, setPicture: Function, className?: string }
@@ -19,20 +21,7 @@ export const HorizontalView = (
       </ResizablePanel>
       <ResizableHandle withHandle />
       <ResizablePanel defaultSize={50} minSize={20}>
-        <ResizablePanelGroup direction="vertical">
-          <ResizablePanel minSize={20} maxSize={20}>
-            <div className="flex h-full items-center justify-start p-6">
-              <span className="font-semibold">Groups of functions</span>
-            </div>
-          </ResizablePanel>
-          <div className="w-full h-[0.5px] bg-white"></div>
-          <ResizablePanel defaultSize={75} minSize={20}>
-            <ScrollArea className="h-full">
-              <FirstSeminar stacks={stacks} setPicture={setPicture} />
-              <ScrollBar orientation="vertical" />
-            </ScrollArea>
-          </ResizablePanel>
-        </ResizablePanelGroup>
+        <Horizontal stacks={stacks} setPicture={setPicture} />
       </ResizablePanel>
     </ResizablePanelGroup>
   </div>
@@ -42,24 +31,12 @@ export const VerticalView = (
   { stacks, picture, setPicture, className }: { stacks: StackList, picture: string, setPicture: Function, className?: string }
 ) => (
   <div className={`w-full h-full flex ${className}`}>
-
     <ResizablePanelGroup direction="vertical">
       <ResizablePanel minSize={20}>
         <ImageLoader files={stacks} picture={picture} setPicture={setPicture} />
       </ResizablePanel>
       <ResizableHandle withHandle />
-      <ResizablePanel minSize={20}>
-        <div className="flex h-full items-center justify-start p-6">
-          <span className="font-semibold">Groups of functions</span>
-        </div>
-      </ResizablePanel>
-      <ResizableHandle withHandle />
-      <ResizablePanel minSize={20}>
-        <ScrollArea className="h-full">
-          <FirstSeminar stacks={stacks} setPicture={setPicture} />
-          <ScrollBar orientation="vertical" />
-        </ScrollArea>
-      </ResizablePanel>
+      <Vertical stacks={stacks} setPicture={setPicture} />
     </ResizablePanelGroup>
   </div>
 )
