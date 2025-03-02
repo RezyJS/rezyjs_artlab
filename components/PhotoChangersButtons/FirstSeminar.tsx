@@ -6,6 +6,7 @@ import { NegativeButton } from "../FunctionsButtons/NegativeButton";
 import { BinarizationButton } from "../FunctionsButtons/BinarizationButton";
 import { HistogramButton } from "../FunctionsButtons/HistogramButton";
 import { ContrastButton } from "../FunctionsButtons/ContrastButton";
+import { GammaButton } from "../FunctionsButtons/GammaButton";
 
 export default function FirstSeminar({ stacks, setPicture }: { stacks: StackList, setPicture: Function }) {
   return (
@@ -17,6 +18,7 @@ export default function FirstSeminar({ stacks, setPicture }: { stacks: StackList
         <BinarizationButton stacks={stacks} setPicture={setPicture} />
         <ContrastButton stacks={stacks} setPicture={setPicture} />
         <HistogramButton stacks={stacks} setPicture={setPicture} />
+        <GammaButton stacks={stacks} setPicture={setPicture} />
       </div>
     </div>
   );

@@ -144,6 +144,42 @@ const lessContrast = (
   }
 };
 
+const gammaFunc = (
+  pixels: Uint8ClampedArray<ArrayBufferLike>,
+  ...rest: number[]
+) => {
+  const gamma = rest[0];
+
+  for (let i = 0; i < pixels.length; i += 4) {
+    const red = 255 * Math.pow(pixels[i] / 255, gamma);
+    const green = 255 * Math.pow(pixels[i + 1] / 255, gamma);
+    const blue = 255 * Math.pow(pixels[i + 2] / 255, gamma);
+    // const alpha = pixels[i + 3];
+
+    pixels[i] = red;
+    pixels[i + 1] = green;
+    pixels[i + 2] = blue;
+  }
+};
+
+export const makeGamma = (
+  gamma: number,
+  stack: Stack,
+  setPicture: Function
+) => {
+  if (stack === null || stack.isEmpty()) {
+    toast.error('Error occurred!', {
+      description: 'Create a File and Load a photo to continue!'
+    });
+    return;
+  }
+
+  const image = stack.getCurrentPhoto();
+  if (image instanceof HTMLImageElement) {
+    imageOperation(image, gammaFunc, stack, setPicture, gamma);
+  }
+};
+
 export const makeContrast = (
   q1: number,
   q2: number,
