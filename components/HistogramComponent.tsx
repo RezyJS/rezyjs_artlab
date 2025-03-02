@@ -34,7 +34,7 @@ const getPixels = (stacks: StackList): ChartData => {
 
   const pixels = [];
   let amount = 0;
-  
+
   for (let i = 0; i < imageData.length; i += 4) {
     if (pixels[imageData[i]] === undefined) pixels[imageData[i]] = 1;
     else pixels[imageData[i]] += 1;
@@ -47,7 +47,7 @@ const getPixels = (stacks: StackList): ChartData => {
   }
 
   return answer;
-} 
+}
 
 export default function Histogram({ stacks }: { stacks: StackList }) {
 

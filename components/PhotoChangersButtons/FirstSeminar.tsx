@@ -20,8 +20,8 @@ export default function FirstSeminar({ stacks, setPicture }: { stacks: StackList
       {/* TODO: Histogram */}
       {
         (stacks.currentFile() !== null && !stacks.currentFile()?.isEmpty()) ?
-        <HistogramButton stacks={stacks} setPicture={setPicture} /> :
-        <></>
+          <HistogramButton stacks={stacks} setPicture={setPicture} /> :
+          <></>
       }
     </div>
   );

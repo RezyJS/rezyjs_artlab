@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
 
 import { Button } from "@/components/ui/button";
-import { 
+import {
   processFile,
   makeBrighter,
   makeNegative,
@@ -22,7 +22,7 @@ import {
   ChartColumnBig,
 } from 'lucide-react'
 import StackList from "@/lib/structures";
-import { 
+import {
   Dialog,
   DialogTrigger,
   DialogContent,
@@ -71,16 +71,16 @@ export const BrightnessButton = ({ stacks, setPicture }: defaultButtonNeeds) => 
 
   return (
     <MyButtonWithPopover text='Brightness'>
-      <p>Value: {value}</p> 
+      <p>Value: {value}</p>
       <Slider defaultValue={[value]} max={256} step={1} onValueChange={(val) => { setValue(val[0]) }} className="bg-white rounded-md" />
       <div className="flex justify-evenly">
-        <MyDefaultButton 
+        <MyDefaultButton
           text='Brighter'
           callback={() => makeBrighter(value, stacks.currentFile()!, setPicture)}
         >
           <Sun />
         </MyDefaultButton>
-        <MyDefaultButton 
+        <MyDefaultButton
           text='Darker'
           callback={() => makeBrighter(-value, stacks.currentFile()!, setPicture)}
         >
@@ -92,7 +92,7 @@ export const BrightnessButton = ({ stacks, setPicture }: defaultButtonNeeds) => 
 }
 
 export const GrayScaleButton = ({ stacks, setPicture }: defaultButtonNeeds) => (
-  <MyDefaultButton 
+  <MyDefaultButton
     text="GrayScale"
     callback={() => processFile('grayScale', stacks.currentFile()!, setPicture)}
   />
@@ -103,10 +103,10 @@ export const NegativeButton = ({ stacks, setPicture }: defaultButtonNeeds) => {
 
   return (
     <MyButtonWithPopover text='Negative'>
-      <p>Value: {value}</p> 
+      <p>Value: {value}</p>
       <Slider defaultValue={[value]} max={256} step={1} onValueChange={(val) => { setValue(val[0]) }} className="bg-white rounded-md" />
       <div className="flex justify-evenly">
-        <MyDefaultButton 
+        <MyDefaultButton
           text='Negative'
           callback={() => makeNegative(value, stacks.currentFile()!, setPicture)}
         >
@@ -122,10 +122,10 @@ export const BinarizationButton = ({ stacks, setPicture }: defaultButtonNeeds) =
 
   return (
     <MyButtonWithPopover text='Binarization'>
-      <p>Value: {value}</p> 
+      <p>Value: {value}</p>
       <Slider defaultValue={[value]} max={256} step={1} onValueChange={(val) => { setValue(val[0]) }} className="bg-white rounded-md" />
       <div className="flex justify-evenly">
-        <MyDefaultButton 
+        <MyDefaultButton
           text='Binarization'
           callback={() => makeBinary(value, stacks.currentFile()!, setPicture)}
         >
@@ -140,9 +140,9 @@ export const HistogramButton = ({ stacks }: defaultButtonNeeds) => (
   <Dialog>
     <DialogTrigger asChild>
       <div className='flex justify-evenly'>
-        <MyDefaultButton 
+        <MyDefaultButton
           text='Histogram'
-          callback={() => {}}
+          callback={() => { }}
         >
           <ChartColumnBig />
         </MyDefaultButton>
@@ -150,7 +150,7 @@ export const HistogramButton = ({ stacks }: defaultButtonNeeds) => (
     </DialogTrigger>
     <DialogContent className="min-w-[90vw] max-w-[90vw] h-[90vh] flex flex-col justify-center items-center">
       <DialogTitle>Histogram</DialogTitle>
-      <Histogram stacks={stacks}/>
+      <Histogram stacks={stacks} />
     </DialogContent>
   </Dialog>
 )

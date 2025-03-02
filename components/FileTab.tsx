@@ -6,9 +6,9 @@ import { SquareX } from 'lucide-react'
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export default function Tab({ idx, stacks, setStacks }: { idx: number, setStacks: Function, stacks: StackList }) {
   return (
-    <div 
+    <div
       className='flex justify-between items-center border rounded-md py-[6px] pl-4 gap-2 cursor-pointer'
-      onClick={() => { stacks.setCurrentFile(idx); setStacks(new StackList(stacks.getFiles(), idx))}}  
+      onClick={() => { stacks.setCurrentFile(idx); setStacks(new StackList(stacks.getFiles(), idx)) }}
     >
       <div className='flex justify-center flex-1'>
         <p>File {idx}</p>

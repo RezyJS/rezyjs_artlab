@@ -26,11 +26,11 @@ export default function ImageLoader({ files, picture, setPicture }: { files: Sta
     <ContextMenu>
       <ContextMenuTrigger className="h-full">
         <label className="h-full flex flex-col justify-center items-center gap-5 cursor-pointer w-full p-6 object-contain">
-          <img src={picture} alt="image" width={0} height={0} sizes="100vh" className="max-w-fit max-h-fit h-full w-full object-contain"/>
-          <input 
-            type="file" 
+          <img src={picture} alt="image" width={0} height={0} sizes="100vh" className="max-w-fit max-h-fit h-full w-full object-contain" />
+          <input
+            type="file"
             name="input"
-            id="input" 
+            id="input"
             className='hidden'
             onInputCapture={
               (e) => {
@@ -55,22 +55,22 @@ export default function ImageLoader({ files, picture, setPicture }: { files: Sta
                 loadNewPhoto(file, files.currentFile()!, setPicture);
               }
             }
-            />
+          />
         </label>
       </ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuItem 
-          disabled={files.currentFile() === null || files.currentFile()!.isEmpty() || files.currentFile()!.isFirst()} 
+        <ContextMenuItem
+          disabled={files.currentFile() === null || files.currentFile()!.isEmpty() || files.currentFile()!.isFirst()}
           onClick={() => {
             files.currentFile()!.revert();
             setPicture(files.currentFile()!.getCurrentPhoto()!.src)
-          }} 
+          }}
           className="flex flex-row w-full justify-between gap-5"
         >
           Back
           <ArrowLeftCircle />
         </ContextMenuItem>
-        <ContextMenuItem 
+        <ContextMenuItem
           disabled={files.currentFile() === null || files.currentFile()!.isEmpty() || files.currentFile()!.isLast()}
           onClick={() => {
             files.currentFile()!.undoRevert();
@@ -82,7 +82,7 @@ export default function ImageLoader({ files, picture, setPicture }: { files: Sta
           Forward
           <ArrowRightCircle />
         </ContextMenuItem>
-        <ContextMenuItem 
+        <ContextMenuItem
           disabled={files.currentFile() === null || files.currentFile()!.isEmpty() || files.currentFile()!.isFirst()}
           onClick={() => {
             files.currentFile()!.reset();
@@ -93,7 +93,7 @@ export default function ImageLoader({ files, picture, setPicture }: { files: Sta
           Reset
           <Trash2 />
         </ContextMenuItem>
-        <ContextMenuItem 
+        <ContextMenuItem
           disabled={files.currentFile() === null || files.currentFile()!.isEmpty()}
           onClick={() => {
             files.currentFile()!.makeNew();
@@ -104,7 +104,7 @@ export default function ImageLoader({ files, picture, setPicture }: { files: Sta
           Delete Photo
           <LucideX />
         </ContextMenuItem>
-        <ContextMenuItem 
+        <ContextMenuItem
           disabled={files.currentFile() === null || files.currentFile()!.isEmpty()}
           className="flex flex-row w-full justify-between gap-5"
           onClick={() => toast.info("WIP", { description: 'Work in Progress' })}

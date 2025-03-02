@@ -8,7 +8,7 @@ export class Stack {
     }
 
     this.stack.push(photo);
-    this.#pointer++; 
+    this.#pointer++;
   }
 
   isLast() {
@@ -55,9 +55,9 @@ export class Stack {
 }
 
 export interface IStackList {
-  id: number,
-  stack: Stack,
-  color: string,
+  id: number;
+  stack: Stack;
+  color: string;
 }
 
 export default class StackList {
@@ -77,11 +77,11 @@ export default class StackList {
     }
     if (rest.length === 1) {
       this.setCurrentFile(rest[0]!);
-    } 
+    }
   }
 
   currentFile() {
-    console.info(`Current file: ${this.#currentStack}`)
+    console.info(`Current file: ${this.#currentStack}`);
 
     if (this.#currentStack === -1) {
       return null;
@@ -105,7 +105,11 @@ export default class StackList {
   newFile() {
     if (this.stackList.length < this.#maxLength) {
       this.#currentStack = this.stackList.length;
-      this.stackList.push({ id: this.#fileId++, stack: new Stack(), color: 'text-[var(--accent-color)]' });
+      this.stackList.push({
+        id: this.#fileId++,
+        stack: new Stack(),
+        color: 'text-[var(--accent-color)]'
+      });
     }
   }
 
@@ -123,4 +127,4 @@ export default class StackList {
   getFiles() {
     return this.stackList;
   }
-} 
+}

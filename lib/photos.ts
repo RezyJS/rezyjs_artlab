@@ -1,8 +1,14 @@
-import { toast } from "sonner";
-import { Stack } from "./structures";
+import { toast } from 'sonner';
+import { Stack } from './structures';
 
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
-export const imageOperation = (image: HTMLImageElement, callback: Function | null, stack: Stack, setPicture: Function, ...rest: (number | undefined)[]) => {
+export const imageOperation = (
+  image: HTMLImageElement,
+  callback: Function | null,
+  stack: Stack,
+  setPicture: Function,
+  ...rest: (number | undefined)[]
+) => {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d')!;
 
@@ -26,8 +32,8 @@ export const imageOperation = (image: HTMLImageElement, callback: Function | nul
     img.src = url;
     setPicture(url);
     if (callback !== null) stack.add(img);
-  }, "image/jpeg")
-}
+  }, 'image/jpeg');
+};
 
 const grayScale = (pixels: Uint8ClampedArray<ArrayBufferLike>) => {
   for (let i = 0; i < pixels.length; i += 4) {
@@ -40,9 +46,12 @@ const grayScale = (pixels: Uint8ClampedArray<ArrayBufferLike>) => {
     pixels[i + 1] = I;
     pixels[i + 2] = I;
   }
-}
+};
 
-const brightness = (pixels: Uint8ClampedArray<ArrayBufferLike>, ...rest: number[]) => {
+const brightness = (
+  pixels: Uint8ClampedArray<ArrayBufferLike>,
+  ...rest: number[]
+) => {
   const clamp = (num: number) => Math.min(Math.max(num, 0), 255);
 
   const brightnessValue = rest[0];
@@ -57,25 +66,32 @@ const brightness = (pixels: Uint8ClampedArray<ArrayBufferLike>, ...rest: number[
     pixels[i + 1] = green;
     pixels[i + 2] = blue;
   }
-}
+};
 
-const negative = (pixels: Uint8ClampedArray<ArrayBufferLike>, ...rest: number[]) => {
-
+const negative = (
+  pixels: Uint8ClampedArray<ArrayBufferLike>,
+  ...rest: number[]
+) => {
   const negative = rest[0];
 
   for (let i = 0; i < pixels.length; i += 4) {
     const red = pixels[i] >= negative ? 255 - pixels[i] : pixels[i];
-    const green = pixels[i + 1] >= negative ? 255 - pixels[i + 1] : pixels[i + 1];
-    const blue = pixels[i + 2] >= negative ? 255 - pixels[i + 2] : pixels[i + 2];
+    const green =
+      pixels[i + 1] >= negative ? 255 - pixels[i + 1] : pixels[i + 1];
+    const blue =
+      pixels[i + 2] >= negative ? 255 - pixels[i + 2] : pixels[i + 2];
     // const alpha = pixels[i + 3];
 
     pixels[i] = red;
     pixels[i + 1] = green;
     pixels[i + 2] = blue;
   }
-}
+};
 
-const binary = (pixels: Uint8ClampedArray<ArrayBufferLike>, ...rest: number[]) => {
+const binary = (
+  pixels: Uint8ClampedArray<ArrayBufferLike>,
+  ...rest: number[]
+) => {
   const binary = rest[0];
 
   for (let i = 0; i < pixels.length; i += 4) {
@@ -88,12 +104,16 @@ const binary = (pixels: Uint8ClampedArray<ArrayBufferLike>, ...rest: number[]) =
     pixels[i + 1] = green;
     pixels[i + 2] = blue;
   }
-}
+};
 
-export const makeBrighter = (brightnessValue: number, stack: Stack, setPicture: Function) => {
+export const makeBrighter = (
+  brightnessValue: number,
+  stack: Stack,
+  setPicture: Function
+) => {
   if (stack === null || stack.isEmpty()) {
-    toast.error("Error occurred!", {
-      description: "Create a File and Load a photo to continue!",
+    toast.error('Error occurred!', {
+      description: 'Create a File and Load a photo to continue!'
     });
     return;
   }
@@ -102,12 +122,16 @@ export const makeBrighter = (brightnessValue: number, stack: Stack, setPicture: 
   if (image instanceof HTMLImageElement) {
     imageOperation(image, brightness, stack, setPicture, brightnessValue);
   }
-}
+};
 
-export const makeNegative = (negativeValue: number, stack: Stack, setPicture: Function) => {
+export const makeNegative = (
+  negativeValue: number,
+  stack: Stack,
+  setPicture: Function
+) => {
   if (stack === null || stack.isEmpty()) {
-    toast.error("Error occurred!", {
-      description: "Create a File and Load a photo to continue!",
+    toast.error('Error occurred!', {
+      description: 'Create a File and Load a photo to continue!'
     });
     return;
   }
@@ -116,12 +140,16 @@ export const makeNegative = (negativeValue: number, stack: Stack, setPicture: Fu
   if (image instanceof HTMLImageElement) {
     imageOperation(image, negative, stack, setPicture, negativeValue);
   }
-}
+};
 
-export const makeBinary = (binaryValue: number, stack: Stack, setPicture: Function) => {
+export const makeBinary = (
+  binaryValue: number,
+  stack: Stack,
+  setPicture: Function
+) => {
   if (stack === null || stack.isEmpty()) {
-    toast.error("Error occurred!", {
-      description: "Create a File and Load a photo to continue!",
+    toast.error('Error occurred!', {
+      description: 'Create a File and Load a photo to continue!'
     });
     return;
   }
@@ -130,12 +158,16 @@ export const makeBinary = (binaryValue: number, stack: Stack, setPicture: Functi
   if (image instanceof HTMLImageElement) {
     imageOperation(image, binary, stack, setPicture, binaryValue);
   }
-}
+};
 
-export const processFile = (operation: string, stack: Stack, setPicture: Function) => {
+export const processFile = (
+  operation: string,
+  stack: Stack,
+  setPicture: Function
+) => {
   if (stack === null || stack.isEmpty()) {
-    toast.error("Error occurred!", {
-      description: "Create a File and Load a photo to continue!",
+    toast.error('Error occurred!', {
+      description: 'Create a File and Load a photo to continue!'
     });
     return;
   }
@@ -150,12 +182,16 @@ export const processFile = (operation: string, stack: Stack, setPicture: Functio
       imageOperation(image, null, stack, setPicture);
     }
   }
-}
+};
 
-export const loadNewPhoto = (photo: File, stack: Stack, setPicture: Function) => {
+export const loadNewPhoto = (
+  photo: File,
+  stack: Stack,
+  setPicture: Function
+) => {
   stack.makeNew();
   loadPhoto(photo, stack, setPicture);
-}
+};
 
 export const loadPhoto = (photo: File, stack: Stack, setPicture: Function) => {
   const reader = new FileReader();
@@ -165,11 +201,11 @@ export const loadPhoto = (photo: File, stack: Stack, setPicture: Function) => {
 
     image.onload = () => {
       stack.add(image);
-      processFile("", stack, setPicture);
-    }
+      processFile('', stack, setPicture);
+    };
 
-    image.src = "" + e.target!.result;
-  }
+    image.src = '' + e.target!.result;
+  };
 
   reader.readAsDataURL(photo);
-}
+};

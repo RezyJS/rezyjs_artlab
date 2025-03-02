@@ -28,7 +28,7 @@ export default function RootLayout({
         <Layout>
           {children}
         </Layout>
-        <Toaster theme="dark" closeButton/>
+        <Toaster theme="dark" closeButton />
       </body>
     </html>
   );

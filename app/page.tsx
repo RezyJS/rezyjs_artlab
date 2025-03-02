@@ -13,24 +13,24 @@ export default function App() {
   return (
     <div className="flex flex-1 flex-col h-full gap-3">
       <div className="flex w-full justify-between">
-        <FilesSlider 
+        <FilesSlider
           stacks={stacks}
           setStacks={setStacks}
         />
-        <SquarePlus className="w-12 h-12 my-auto ml-2 hover:text-green-500 cursor-pointer" 
+        <SquarePlus className="w-12 h-12 my-auto ml-2 hover:text-green-500 cursor-pointer"
           onClick={() => {
             stacks.newFile();
             setStacks(new StackList(stacks.getFiles()));
           }
-        }/>
-        <SquareX 
-          className="w-12 h-12 my-auto ml-2 hover:text-red-500 cursor-pointer" 
-          onClick={() => { setStacks(new StackList([])) }} 
+          } />
+        <SquareX
+          className="w-12 h-12 my-auto ml-2 hover:text-red-500 cursor-pointer"
+          onClick={() => { setStacks(new StackList([])) }}
         />
       </div>
-      <Container 
+      <Container
         stacks={stacks}
-        setStacks={setStacks} 
+        setStacks={setStacks}
       />
     </div>
   );
