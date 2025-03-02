@@ -4,7 +4,7 @@ import {
   ResizablePanel,
   ResizableHandle
 } from '@/components/ui/resizable';
-import ImageLoader from '@/components/ImageLoader';
+import ImageLoader from '@/components/FilesManager/ImageLoader';
 import StackList from '@/lib/structures';
 import {
   Horizontal,

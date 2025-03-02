@@ -1,7 +1,7 @@
 import { ChartColumnBig } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { defaultButtonNeeds, MyDefaultButton } from "./Buttons";
-import Histogram from "../HistogramComponent";
+import Histogram from "./HistogramComponent";
 
 export const HistogramButton = ({ stacks }: defaultButtonNeeds) => (
   <Dialog>

@@ -1,5 +1,5 @@
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
-import Tab from '@/components/FileTab'
+import Tab from '@/components/FilesManager/FileTab'
 import StackList from '@/lib/structures'
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type

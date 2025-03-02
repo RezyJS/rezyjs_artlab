@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import {
   HorizontalView,
   VerticalView
-} from '@/components/ResizableLayouts'
+} from '@/components/ResizableContainer/ResizableLayouts'
 
 export default function Container({ stacks }: { stacks: StackList, setStacks: Function }) {
   const [picture, setPicture] = useState<string>('/placeholder.jpg');

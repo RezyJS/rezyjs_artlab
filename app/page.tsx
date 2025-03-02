@@ -1,7 +1,7 @@
 'use client'
 
-import Container from "@/components/ResizableContainer";
-import FilesSlider from "@/components/FilesSlider";
+import Container from "@/components/ResizableContainer/ResizableContainer";
+import FilesSlider from "@/components/FilesManager/FilesSlider";
 import { SquarePlus, SquareX } from "lucide-react";
 import { useState } from "react";
 import StackList from "@/lib/structures";

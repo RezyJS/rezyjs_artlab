@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
 import StackList from "@/lib/structures";
-import FirstSeminar from "./PhotoChangersButtons/FirstSeminar";
-import { Button } from "./ui/button";
+import FirstSeminar from "../PhotoChangersButtons/FirstSeminar";
+import { Button } from "../ui/button";
 import {
   ScrollArea,
   ScrollBar
-} from "./ui/scroll-area";
+} from "../ui/scroll-area";
 
 const DefaultButton = ({ setFunctions, component, text }: { setFunctions: Function, component: React.ReactNode, text: string }) => {
   return (
