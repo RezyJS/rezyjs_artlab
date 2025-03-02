@@ -54,9 +54,6 @@ const getPixels = (stacks: StackList): ChartData => {
     }
   }
 
-  console.info(`pixels: ${pixels}`)
-  console.info(answer);
-
   return answer;
 }
 

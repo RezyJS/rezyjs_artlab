@@ -66,7 +66,7 @@ export default class StackList {
   #currentStack: number = -1;
   #maxLength: number = 20;
 
-  constructor(files: IStackList[], ...rest: (number | undefined)[]) {
+  constructor(files: IStackList[], ...rest: number[]) {
     this.stackList = files;
     if (files.length > 0) {
       this.#fileId = files[files.length - 1].id + 1;
@@ -75,8 +75,8 @@ export default class StackList {
       this.#fileId = 1;
       this.#currentStack = -1;
     }
-    if (rest.length === 1) {
-      this.setCurrentFile(rest[0]!);
+    if (rest.length > 0 && typeof rest[0] === 'number') {
+      this.setCurrentFile(rest[0]);
     }
   }
 

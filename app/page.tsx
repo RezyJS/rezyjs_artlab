@@ -5,15 +5,18 @@ import FilesSlider from "@/components/FilesManager/FilesSlider";
 import { SquarePlus, SquareX } from "lucide-react";
 import { useEffect, useState } from "react";
 import StackList from "@/lib/structures";
+import { toast } from "sonner";
 
 export default function App() {
 
-  const stack = new StackList([]);
-  stack.newFile();
-  const [stacks, setStacks] = useState<StackList>(new StackList(stack.getFiles()));
+  const [stacks, setStacks] = useState<StackList>(() => {
+    const stack = new StackList([]);
+    stack.newFile();
+    return new StackList(stack.getFiles());
+  });
 
   useEffect(() => {
-    if (stacks.getFiles().length === 0) {
+    if (!stacks.getFiles()) {
       const stack = new StackList([]);
       stack.newFile();
       setStacks(new StackList(stack.getFiles()))
@@ -27,10 +30,14 @@ export default function App() {
           stacks={stacks}
           setStacks={setStacks}
         />
+        {/* TODO: Fix this shitty stackList system */}
         <SquarePlus className="w-12 h-12 my-auto ml-2 hover:text-green-500 cursor-pointer"
           onClick={() => {
-            stacks.newFile();
-            setStacks(new StackList(stacks.getFiles()));
+            // stacks.newFile();
+            // setStacks(new StackList(stacks.getFiles()));
+            toast.info('WIP', {
+              description: `Currently this shit is broken and I'm trying hard to fix it`
+            })
           }
           } />
         <SquareX

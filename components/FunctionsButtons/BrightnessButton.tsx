@@ -14,7 +14,10 @@ export const BrightnessButton = ({ stacks, setPicture }: defaultButtonNeeds) => 
       <div className="flex justify-evenly">
         <MyDefaultButton
           text='Brighter'
-          callback={() => makeBrighter(value, stacks.currentFile()!, setPicture)}
+          callback={() => {
+            stacks.setCurrentFile(stacks.currentFileId);
+            makeBrighter(value, stacks.currentFile()!, setPicture)
+          }}
         >
           <Sun />
         </MyDefaultButton>

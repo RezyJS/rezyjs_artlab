@@ -182,8 +182,6 @@ const kvantation = (
     }
   }
 
-  console.info(`colors: ${color}`);
-
   for (let i = 0; i < pixels.length; i += 4) {
     const red = color[pixels[i]];
     const green = color[pixels[i + 1]];
@@ -350,6 +348,7 @@ export const processFile = (
   }
 
   const image = stack.getCurrentPhoto();
+
   if (image instanceof HTMLImageElement) {
     if (operation === 'grayScale') {
       imageOperation(image, grayScale, stack, setPicture);

@@ -10,10 +10,12 @@ export default function Container({ stacks }: { stacks: StackList, setStacks: Fu
   const [picture, setPicture] = useState<string>('/placeholder.jpg');
 
   useEffect(() => {
-    const currFile = stacks.currentFile();
-    if (currFile === null || currFile.getCurrentPhoto() === null) setPicture('/placeholder.jpg');
-    else setPicture(currFile.getCurrentPhoto()!.src)
-  }, [stacks])
+    const currFile = stacks.currentFile()!;
+    if (currFile.getCurrentPhoto()?.src !== picture) {
+      if (currFile === null || currFile.getCurrentPhoto() === null) setPicture('/placeholder.jpg');
+      else setPicture(currFile.getCurrentPhoto()!.src)
+    }
+  }, [stacks, picture])
 
   return (
     <div className="border rounded-lg w-full max-h-[90vh] min-h-[90vh]">
