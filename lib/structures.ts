@@ -81,8 +81,6 @@ export default class StackList {
   }
 
   currentFile() {
-    console.info(`Current file: ${this.#currentStack}`);
-
     if (this.#currentStack === -1) {
       return null;
     }

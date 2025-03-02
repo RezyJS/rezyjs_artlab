@@ -48,7 +48,9 @@ export default function ImageLoader({ files, picture, setPicture }: { files: Sta
 
                 const file = e.currentTarget.files[0];
                 if (!file.type.startsWith('image')) {
-                  alert('This file is not an image!')
+                  toast.error('Wrong format', {
+                    description: 'This file is not an image!',
+                  });
                   return;
                 }
 
@@ -74,7 +76,6 @@ export default function ImageLoader({ files, picture, setPicture }: { files: Sta
           disabled={files.currentFile() === null || files.currentFile()!.isEmpty() || files.currentFile()!.isLast()}
           onClick={() => {
             files.currentFile()!.undoRevert();
-            console.info(`Current file from loader: ${files.currentFileId}`)
             setPicture(files.currentFile()!.getCurrentPhoto()!.src)
           }}
           className="flex flex-row w-full justify-between gap-5"

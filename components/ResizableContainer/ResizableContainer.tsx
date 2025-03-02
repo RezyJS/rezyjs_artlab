@@ -10,7 +10,6 @@ export default function Container({ stacks }: { stacks: StackList, setStacks: Fu
   const [picture, setPicture] = useState<string>('/placeholder.jpg');
 
   useEffect(() => {
-    console.info('Files changed!')
     const currFile = stacks.currentFile();
     if (currFile === null || currFile.getCurrentPhoto() === null) setPicture('/placeholder.jpg');
     else setPicture(currFile.getCurrentPhoto()!.src)
