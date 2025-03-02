@@ -4,16 +4,22 @@
 
 :root {
   --dark-color: #1c1d21;
-  --accent-color: #A288A6;
-  --secondary-color: #BB9BB0;
-  --light-color: #F1E3E4;
-  --light-accent-color: #CCBCBC;
+  --accent-color: #a288a6;
+  --secondary-color: #bb9bb0;
+  --light-color: #f1e3e4;
+  --light-accent-color: #ccbcbc;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
 }
 
 @keyframes slide_from_bottom {
   from {
     bottom: -300px;
-  } to {
+  }
+  to {
     bottom: 0px;
   }
 }
@@ -89,8 +95,6 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
-
-
 
 @layer base {
   * {
