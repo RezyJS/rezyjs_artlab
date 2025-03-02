@@ -106,6 +106,71 @@ const binary = (
   }
 };
 
+const moreContrast = (
+  pixels: Uint8ClampedArray<ArrayBufferLike>,
+  ...rest: number[]
+) => {
+  const Q1 = rest[0];
+  const Q2 = rest[1];
+
+  for (let i = 0; i < pixels.length; i += 4) {
+    const red = ((pixels[i] - Q1) * 255) / (Q2 - Q1);
+    const green = ((pixels[i + 1] - Q1) * 255) / (Q2 - Q1);
+    const blue = ((pixels[i + 2] - Q1) * 255) / (Q2 - Q1);
+    // const alpha = pixels[i + 3];
+
+    pixels[i] = red;
+    pixels[i + 1] = green;
+    pixels[i + 2] = blue;
+  }
+};
+
+const lessContrast = (
+  pixels: Uint8ClampedArray<ArrayBufferLike>,
+  ...rest: number[]
+) => {
+  const Q1 = rest[0];
+  const Q2 = rest[1];
+
+  for (let i = 0; i < pixels.length; i += 4) {
+    const red = ((Q1 + pixels[i]) * (Q2 - Q1)) / 255;
+    const green = ((Q1 + pixels[i + 1]) * (Q2 - Q1)) / 255;
+    const blue = ((Q1 + pixels[i + 2]) * (Q2 - Q1)) / 255;
+    // const alpha = pixels[i + 3];
+
+    pixels[i] = red;
+    pixels[i + 1] = green;
+    pixels[i + 2] = blue;
+  }
+};
+
+export const makeContrast = (
+  q1: number,
+  q2: number,
+  operation: string,
+  stack: Stack,
+  setPicture: Function
+) => {
+  if (stack === null || stack.isEmpty()) {
+    toast.error('Error occurred!', {
+      description: 'Create a File and Load a photo to continue!'
+    });
+    return;
+  }
+
+  const image = stack.getCurrentPhoto();
+  if (image instanceof HTMLImageElement) {
+    switch (operation) {
+      case 'more':
+        imageOperation(image, moreContrast, stack, setPicture, q1, q2);
+        break;
+      case 'less':
+        imageOperation(image, lessContrast, stack, setPicture, q1, q2);
+        break;
+    }
+  }
+};
+
 export const makeBrighter = (
   brightnessValue: number,
   stack: Stack,

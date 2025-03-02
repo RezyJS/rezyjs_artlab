@@ -5,6 +5,7 @@ import { BrightnessButton } from "../FunctionsButtons/BrightnessButton";
 import { NegativeButton } from "../FunctionsButtons/NegativeButton";
 import { BinarizationButton } from "../FunctionsButtons/BinarizationButton";
 import { HistogramButton } from "../FunctionsButtons/HistogramButton";
+import { ContrastButton } from "../FunctionsButtons/ContrastButton";
 
 export default function FirstSeminar({ stacks, setPicture }: { stacks: StackList, setPicture: Function }) {
   return (
@@ -14,8 +15,7 @@ export default function FirstSeminar({ stacks, setPicture }: { stacks: StackList
         <BrightnessButton stacks={stacks} setPicture={setPicture} />
         <NegativeButton stacks={stacks} setPicture={setPicture} />
         <BinarizationButton stacks={stacks} setPicture={setPicture} />
-        {/* TODO: Contrast */}
-        <NegativeButton stacks={stacks} setPicture={setPicture} />
+        <ContrastButton stacks={stacks} setPicture={setPicture} />
         {
           (stacks.currentFile() !== null && !stacks.currentFile()?.isEmpty()) ?
             <HistogramButton stacks={stacks} setPicture={setPicture} /> :
