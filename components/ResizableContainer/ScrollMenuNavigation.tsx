@@ -18,9 +18,16 @@ export const Horizontal = ({ stacks, setPicture }: { stacks: StackList, setPictu
   return (
     <ResizablePanelGroup direction="vertical">
       <ResizablePanel minSize={20} maxSize={20}>
-        <div className="flex justify-center items-center h-full w-full">
-          <ButtonsList stacks={stacks} setPicture={setPicture} setFunctions={setFunctions} />
-        </div>
+        {
+          stacks.currentFile() !== null && !stacks.currentFile()!.isEmpty() ?
+            <div className="flex justify-center items-center h-full w-full">
+              <ButtonsList stacks={stacks} setPicture={setPicture} setFunctions={setFunctions} />
+            </div>
+            : <div className='flex justify-center items-center h-full w-full font-semibold'>
+              Load Your Photo
+            </div>
+        }
+
       </ResizablePanel>
       <div className="w-full h-[0.5px] bg-white"></div>
       <ResizablePanel defaultSize={75} minSize={20}>
