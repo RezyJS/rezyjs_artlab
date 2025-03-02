@@ -32,10 +32,10 @@ export default function ImageLoader({ files, picture, setPicture }: { files: Sta
             name="input"
             id="input"
             className='hidden'
-            onInputCapture={
+            onInput={
               (e) => {
                 if (!e.currentTarget.files) {
-                  toast("Error. No files provided!");
+                  toast.error("Error. No files provided!");
                   return;
                 }
 
