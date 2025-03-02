@@ -35,13 +35,16 @@ export default function ImageLoader({ files, picture, setPicture }: { files: Sta
             onInput={
               (e) => {
                 if (!e.currentTarget.files) {
-                  toast.error("Error. No files provided!");
+                  toast.error("No data", {
+                    description: 'No images were provided'
+                  });
                   return;
                 }
 
                 if (!files.currentFile()) {
-                  toast.error("Error occurred!", {
-                    description: "Create a File to continue!",
+                  e.currentTarget.value = "";
+                  toast.error("No file", {
+                    description: "Create a File to continue",
                   });
                   return;
                 }
@@ -49,7 +52,7 @@ export default function ImageLoader({ files, picture, setPicture }: { files: Sta
                 const file = e.currentTarget.files[0];
                 if (!file.type.startsWith('image')) {
                   toast.error('Wrong format', {
-                    description: 'This file is not an image!',
+                    description: 'This file is not an image',
                   });
                   return;
                 }
