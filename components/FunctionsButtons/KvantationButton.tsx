@@ -12,7 +12,7 @@ export const KvantationButton = ({ file }: defaultButtonNeeds) => {
       <p>Number of kvants: {value}</p>
       <Input type='number' onChange={(e) => {
         const val = +e.target.value;
-        if (val > 0 && val < 257) {
+        if (val > 0 && val < 256) {
           setValue(val);
         }
       }} />

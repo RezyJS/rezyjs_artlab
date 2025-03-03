@@ -31,7 +31,7 @@ export const imageOperation = (
     img.src = url;
     file.setPicture(img);
     if (callback !== null) file.add(img);
-  }, 'image/jpeg');
+  }, 'image/png');
 };
 
 const grayScale = (pixels: Uint8ClampedArray<ArrayBufferLike>) => {
@@ -51,8 +51,6 @@ const brightness = (
   pixels: Uint8ClampedArray<ArrayBufferLike>,
   ...rest: number[]
 ) => {
-  const clamp = (num: number) => Math.min(Math.max(num, 0), 255);
-
   const brightnessValue = rest[0];
 
   for (let i = 0; i < pixels.length; i += 4) {
@@ -94,14 +92,16 @@ const binary = (
   const binary = rest[0];
 
   for (let i = 0; i < pixels.length; i += 4) {
-    const red = pixels[i] >= binary ? 255 : 0;
-    const green = pixels[i + 1] >= binary ? 255 : 0;
-    const blue = pixels[i + 2] >= binary ? 255 : 0;
-    // const alpha = pixels[i + 3];
+    const red = pixels[i];
+    const green = pixels[i + 1];
+    const blue = pixels[i + 2];
 
-    pixels[i] = red;
-    pixels[i + 1] = green;
-    pixels[i + 2] = blue;
+    const I = 0.3 * red + 0.59 * green + 0.11 * blue;
+
+    pixels[i] = I >= binary ? 255 : 0;
+    pixels[i + 1] = I >= binary ? 255 : 0;
+    pixels[i + 2] = I >= binary ? 255 : 0;
+    pixels[i + 3] = 255;
   }
 };
 
@@ -161,35 +161,32 @@ const gammaFunc = (
   }
 };
 
+const clamp = (num: number) => Math.min(Math.max(num, 0), 255);
+
 const kvantation = (
   pixels: Uint8ClampedArray<ArrayBufferLike>,
-  ...rest: [number[]]
+  ...rest: [number]
 ) => {
-  const borders = rest[0];
-  const bordersStep = borders.length > 1 ? borders[1] - borders[0] : 256;
+  const k = rest[0];
 
-  if (bordersStep === 256) {
-    brightness(pixels, 256);
-    return;
-  }
+  const quants = [];
+  const quantSize: number = Math.ceil(256 / k);
 
-  // TODO: Make an array with arr[pixel_val] = color;
-  const color: number[] = [];
-  for (let i = 0; i < borders.length; ++i) {
-    for (let j = 0; j < borders[i]; ++j) {
-      color.push(borders[i]);
+  for (let i = 0; i < k; ++i) {
+    const c = clamp(quantSize - 1 + quantSize * i);
+
+    const start = quantSize * i;
+    const end = Math.min(quantSize + quantSize * i, 256);
+
+    for (let j = start; j < end; ++j) {
+      quants[j] = c;
     }
   }
 
   for (let i = 0; i < pixels.length; i += 4) {
-    const red = color[pixels[i]];
-    const green = color[pixels[i + 1]];
-    const blue = color[pixels[i + 2]];
-    // const alpha = pixels[i + 3];
-
-    pixels[i] = red;
-    pixels[i + 1] = green;
-    pixels[i + 2] = blue;
+    pixels[i] = quants[pixels[i]];
+    pixels[i + 1] = quants[pixels[i + 1]];
+    pixels[i + 2] = quants[pixels[i + 2]];
   }
 };
 
@@ -208,20 +205,9 @@ export const makeKvantation = (borders: number, stack: FileElement) => {
     return;
   }
 
-  const myBorders: number[] = [];
-  const step: number = +(256 / borders).toFixed();
-
-  for (let i = step; i < 256; i += step) {
-    myBorders.push(i);
-  }
-
-  if (myBorders[myBorders.length - 1] !== 255) {
-    myBorders.push(255);
-  }
-
   const image = stack.getCurrentPhoto();
   if (image instanceof HTMLImageElement) {
-    imageOperation(image, kvantation, stack, myBorders);
+    imageOperation(image, kvantation, stack, borders);
   }
 };
 
