@@ -4,7 +4,7 @@ import { defaultButtonNeeds, MyButtonWithPopover, MyDefaultButton } from "@/comp
 import { makeBrighter } from "@/lib/photos";
 import { useState } from "react";
 
-export const BrightnessButton = ({ stacks, setPicture }: defaultButtonNeeds) => {
+export const BrightnessButton = ({ file }: defaultButtonNeeds) => {
   const [value, setValue] = useState(10);
 
   return (
@@ -15,15 +15,17 @@ export const BrightnessButton = ({ stacks, setPicture }: defaultButtonNeeds) => 
         <MyDefaultButton
           text='Brighter'
           callback={() => {
-            stacks.setCurrentFile(stacks.currentFileId);
-            makeBrighter(value, stacks.currentFile()!, setPicture)
+            makeBrighter(value, file);
           }}
         >
           <Sun />
         </MyDefaultButton>
         <MyDefaultButton
           text='Darker'
-          callback={() => makeBrighter(-value, stacks.currentFile()!, setPicture)}
+          callback={() => {
+            makeBrighter(-value, file)
+          }
+          }
         >
           <Moon />
         </MyDefaultButton>

@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../ui/dialog"
 import { defaultButtonNeeds, MyDefaultButton } from "./Buttons";
 import Histogram from "./HistogramComponent";
 
-export const HistogramButton = ({ stacks }: defaultButtonNeeds) => (
+export const HistogramButton = ({ file }: defaultButtonNeeds) => (
   <Dialog>
     <DialogTrigger asChild>
       <div className='flex justify-evenly'>
@@ -17,7 +17,7 @@ export const HistogramButton = ({ stacks }: defaultButtonNeeds) => (
     </DialogTrigger>
     <DialogContent className="min-w-[90vw] max-w-[90vw] h-[90vh] flex flex-col justify-center items-center">
       <DialogTitle>Histogram</DialogTitle>
-      <Histogram stacks={stacks} />
+      <Histogram file={file} />
     </DialogContent>
   </Dialog>
 )

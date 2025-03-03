@@ -2,7 +2,6 @@
 
 'use client'
 
-import StackList from "@/lib/structures";
 import { loadNewPhoto } from "@/lib/photos";
 import { toast } from "sonner";
 import {
@@ -19,14 +18,14 @@ import {
   Trash2,
   LucideX
 } from 'lucide-react'
+import FileElement from "@/lib/structures";
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-export default function ImageLoader({ files, picture, setPicture }: { files: StackList, picture: string, setPicture: Function }) {
+export default function ImageLoader({ file }: { file: FileElement, picture: string }) {
   return (
     <ContextMenu>
       <ContextMenuTrigger className="h-full">
         <label className="h-full flex flex-col justify-center items-center gap-5 cursor-pointer w-full p-6 object-contain">
-          <img src={picture} alt="image" width={0} height={0} sizes="100vh" className="max-w-fit max-h-fit h-full w-full object-contain" />
+          <img src={file.getCurrentPhoto() ? file.getCurrentPhoto()!.src : '/placeholder.jpg'} alt="image" width={0} height={0} sizes="100vh" className="max-w-fit max-h-fit h-full w-full object-contain" />
           <input
             type="file"
             name="input"
@@ -46,23 +45,15 @@ export default function ImageLoader({ files, picture, setPicture }: { files: Sta
                   return;
                 }
 
-                if (!files.currentFile()) {
-                  e.currentTarget.value = "";
-                  toast.error("No file", {
-                    description: "Create a File to continue",
-                  });
-                  return;
-                }
-
-                const file = e.currentTarget.files[0];
-                if (!file.type.startsWith('image')) {
+                const myFile = e.currentTarget.files[0];
+                if (!myFile.type.startsWith('image')) {
                   toast.error('Wrong format', {
                     description: 'This file is not an image',
                   });
                   return;
                 }
 
-                loadNewPhoto(file, files.currentFile()!, setPicture);
+                loadNewPhoto(myFile, file);
               }
             }
           />
@@ -70,10 +61,9 @@ export default function ImageLoader({ files, picture, setPicture }: { files: Sta
       </ContextMenuTrigger>
       <ContextMenuContent>
         <ContextMenuItem
-          disabled={files.currentFile() === null || files.currentFile()!.isEmpty() || files.currentFile()!.isFirst()}
+          disabled={file.isEmpty() || file.isFirst()}
           onClick={() => {
-            files.currentFile()!.revert();
-            setPicture(files.currentFile()!.getCurrentPhoto()!.src)
+            file.revert()
           }}
           className="flex flex-row w-full justify-between gap-5"
         >
@@ -81,10 +71,9 @@ export default function ImageLoader({ files, picture, setPicture }: { files: Sta
           <ArrowLeftCircle />
         </ContextMenuItem>
         <ContextMenuItem
-          disabled={files.currentFile() === null || files.currentFile()!.isEmpty() || files.currentFile()!.isLast()}
+          disabled={file.isEmpty() || file.isLast()}
           onClick={() => {
-            files.currentFile()!.undoRevert();
-            setPicture(files.currentFile()!.getCurrentPhoto()!.src)
+            file.undoRevert()
           }}
           className="flex flex-row w-full justify-between gap-5"
         >
@@ -92,10 +81,9 @@ export default function ImageLoader({ files, picture, setPicture }: { files: Sta
           <ArrowRightCircle />
         </ContextMenuItem>
         <ContextMenuItem
-          disabled={files.currentFile() === null || files.currentFile()!.isEmpty() || files.currentFile()!.isFirst()}
+          disabled={file.isEmpty() || file.isFirst()}
           onClick={() => {
-            files.currentFile()!.reset();
-            setPicture(files.currentFile()!.getCurrentPhoto()!.src)
+            file.reset()
           }}
           className="flex flex-row w-full justify-between gap-5"
         >
@@ -103,10 +91,9 @@ export default function ImageLoader({ files, picture, setPicture }: { files: Sta
           <Trash2 />
         </ContextMenuItem>
         <ContextMenuItem
-          disabled={files.currentFile() === null || files.currentFile()!.isEmpty()}
+          disabled={file.isEmpty()}
           onClick={() => {
-            files.currentFile()!.makeNew();
-            setPicture('/placeholder.jpg')
+            file.newStack();
           }}
           className="flex flex-row w-full justify-between gap-5"
         >
@@ -114,7 +101,7 @@ export default function ImageLoader({ files, picture, setPicture }: { files: Sta
           <LucideX />
         </ContextMenuItem>
         <ContextMenuItem
-          disabled={files.currentFile() === null || files.currentFile()!.isEmpty()}
+          disabled={file.isEmpty()}
           className="flex flex-row w-full justify-between gap-5"
           onClick={() => toast.info("WIP", { description: 'Work in Progress' })}
         >
@@ -122,7 +109,7 @@ export default function ImageLoader({ files, picture, setPicture }: { files: Sta
           <RotateCcw />
         </ContextMenuItem>
         <ContextMenuItem
-          disabled={files.currentFile() === null || files.currentFile()!.isEmpty()}
+          disabled={file.isEmpty()}
           className="flex flex-row w-full justify-between gap-5"
           onClick={() => toast.info("WIP", { description: 'Work in Progress' })}
         >

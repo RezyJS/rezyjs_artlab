@@ -8,18 +8,18 @@ import {
   ScrollArea,
   ScrollBar
 } from '@/components/ui/scroll-area';
-import StackList from '@/lib/structures';
 import { useState } from 'react';
 import { ButtonsList } from './ScrollMenuButtons';
+import FileElement from '@/lib/structures';
 
-export const Horizontal = ({ stacks, setPicture }: { stacks: StackList, setPicture: Function }) => {
+export const Horizontal = ({ file }: { file: FileElement }) => {
   const [functions, setFunctions] = useState<React.ReactNode>();
 
   return (
     <ResizablePanelGroup direction="vertical">
       <ResizablePanel minSize={20} maxSize={20}>
         <div className="flex justify-center items-center h-full w-full">
-          <ButtonsList stacks={stacks} setPicture={setPicture} setFunctions={setFunctions} />
+          <ButtonsList file={file} setFunctions={setFunctions} />
         </div>
       </ResizablePanel>
       <div className="w-full h-[0.5px] bg-white"></div>
@@ -33,14 +33,14 @@ export const Horizontal = ({ stacks, setPicture }: { stacks: StackList, setPictu
   );
 }
 
-export const Vertical = ({ stacks, setPicture }: { stacks: StackList, setPicture: Function }) => {
+export const Vertical = ({ file }: { file: FileElement }) => {
   const [functions, setFunctions] = useState<React.ReactNode>();
 
   return (
     <>
       <ResizablePanel minSize={20}>
         <div className="flex gap-5 justify-center items-center h-full w-full">
-          <ButtonsList stacks={stacks} setPicture={setPicture} setFunctions={setFunctions} />
+          <ButtonsList file={file} setFunctions={setFunctions} />
         </div>
       </ResizablePanel>
       <ResizableHandle withHandle />

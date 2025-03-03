@@ -4,7 +4,7 @@ import { CircleCheck } from "lucide-react";
 import { Input } from "../ui/input";
 import { makeGamma } from "@/lib/photos";
 
-export const GammaButton = ({ stacks, setPicture }: defaultButtonNeeds) => {
+export const GammaButton = ({ file }: defaultButtonNeeds) => {
   const [value, setValue] = useState(0);
 
   return (
@@ -21,7 +21,7 @@ export const GammaButton = ({ stacks, setPicture }: defaultButtonNeeds) => {
         <MyDefaultButton
           text='Make'
           callback={() => {
-            makeGamma(value, stacks.currentFile()!, setPicture);
+            makeGamma(value, file);
           }}
         >
           <CircleCheck />

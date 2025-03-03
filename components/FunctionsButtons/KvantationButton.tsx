@@ -4,7 +4,7 @@ import { CircleCheck } from "lucide-react";
 import { Input } from "../ui/input";
 import { makeKvantation } from "@/lib/photos";
 
-export const KvantationButton = ({ stacks, setPicture }: defaultButtonNeeds) => {
+export const KvantationButton = ({ file }: defaultButtonNeeds) => {
   const [value, setValue] = useState(0);
 
   return (
@@ -21,7 +21,7 @@ export const KvantationButton = ({ stacks, setPicture }: defaultButtonNeeds) => 
         <MyDefaultButton
           text='Make'
           callback={() => {
-            makeKvantation(value, stacks.currentFile()!, setPicture);
+            makeKvantation(value, file);
           }}
         >
           <CircleCheck />

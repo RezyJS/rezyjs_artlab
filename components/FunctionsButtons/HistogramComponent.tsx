@@ -8,7 +8,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import StackList from "@/lib/structures"
+import FileElement from "@/lib/structures"
 
 const chartConfig = {
   val: {
@@ -19,8 +19,8 @@ const chartConfig = {
 
 type ChartData = Array<{ pixel_id: number, value: number }>;
 
-const getPixels = (stacks: StackList): ChartData => {
-  const photo = stacks.currentFile()!.getCurrentPhoto()!;
+const getPixels = (file: FileElement): ChartData => {
+  const photo = file.getCurrentPhoto()!;
 
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
@@ -57,13 +57,13 @@ const getPixels = (stacks: StackList): ChartData => {
   return answer;
 }
 
-export default function Histogram({ stacks }: { stacks: StackList }) {
+export default function Histogram({ file }: { file: FileElement }) {
 
-  if (stacks.currentFile() === null || stacks.currentFile()!.isEmpty()) {
+  if (file.isEmpty()) {
     return <p>Load a file!</p>;
   }
 
-  const data: ChartData = getPixels(stacks);
+  const data: ChartData = getPixels(file);
 
   return (
     <ChartContainer config={chartConfig} className="w-[80vw] h-[80vh]">

@@ -4,7 +4,7 @@ import { Slider } from "../ui/slider";
 import { Binary } from "lucide-react";
 import { makeBinary } from "@/lib/photos";
 
-export const BinarizationButton = ({ stacks, setPicture }: defaultButtonNeeds) => {
+export const BinarizationButton = ({ file }: defaultButtonNeeds) => {
   const [value, setValue] = useState(10);
 
   return (
@@ -14,7 +14,7 @@ export const BinarizationButton = ({ stacks, setPicture }: defaultButtonNeeds) =
       <div className="flex justify-evenly">
         <MyDefaultButton
           text='Binarization'
-          callback={() => makeBinary(value, stacks.currentFile()!, setPicture)}
+          callback={() => makeBinary(value, file)}
         >
           <Binary />
         </MyDefaultButton>

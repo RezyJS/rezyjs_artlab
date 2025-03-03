@@ -4,7 +4,7 @@ import { ArrowDown, ArrowUp } from "lucide-react";
 import { Input } from "../ui/input";
 import { makeContrast } from "@/lib/photos";
 
-export const ContrastButton = ({ stacks, setPicture }: defaultButtonNeeds) => {
+export const ContrastButton = ({ file }: defaultButtonNeeds) => {
   const [lowerValue, setLowerValue] = useState(0);
   const [upperValue, setUpperValue] = useState(256);
 
@@ -29,13 +29,13 @@ export const ContrastButton = ({ stacks, setPicture }: defaultButtonNeeds) => {
       <div className="flex justify-evenly">
         <MyDefaultButton
           text='More'
-          callback={() => makeContrast(lowerValue, upperValue, "more", stacks.currentFile()!, setPicture)}
+          callback={() => makeContrast(lowerValue, upperValue, "more", file)}
         >
           <ArrowUp />
         </MyDefaultButton>
         <MyDefaultButton
           text='Less'
-          callback={() => makeContrast(lowerValue, upperValue, "less", stacks.currentFile()!, setPicture)}
+          callback={() => makeContrast(lowerValue, upperValue, "less", file)}
         >
           <ArrowDown />
         </MyDefaultButton>

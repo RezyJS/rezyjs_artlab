@@ -1,26 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unsafe-function-type */
-import StackList from "@/lib/structures";
-import { useEffect, useState } from "react";
 import {
   HorizontalView,
   VerticalView
 } from '@/components/ResizableContainer/ResizableLayouts'
+import FileElement from '@/lib/structures';
 
-export default function Container({ stacks }: { stacks: StackList, setStacks: Function }) {
-  const [picture, setPicture] = useState<string>('/placeholder.jpg');
-
-  useEffect(() => {
-    const currFile = stacks.currentFile()!;
-    if (currFile.getCurrentPhoto()?.src !== picture) {
-      if (currFile === null || currFile.getCurrentPhoto() === null) setPicture('/placeholder.jpg');
-      else setPicture(currFile.getCurrentPhoto()!.src)
-    }
-  }, [stacks, picture])
-
+export default function Container({ file, picture }: { file: FileElement, picture: string }) {
   return (
-    <div className="border rounded-lg w-full max-h-[90vh] min-h-[90vh]">
-      <HorizontalView stacks={stacks} picture={picture} setPicture={setPicture} className="hidden md:flex" />
-      <VerticalView stacks={stacks} picture={picture} setPicture={setPicture} className="flex md:hidden" />
+    <div className="border rounded-lg w-full min-w-[99vw] max-w-[99vw] max-h-[99vh] min-h-[99vh]">
+      <HorizontalView file={file} picture={picture} className="hidden md:flex" />
+      <VerticalView file={file} picture={picture} className="flex md:hidden" />
     </div>
   )
 }

@@ -1,12 +1,11 @@
 import { toast } from 'sonner';
-import { Stack } from './structures';
+import FileElement from './structures';
 
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
 export const imageOperation = (
   image: HTMLImageElement,
   callback: Function | null,
-  stack: Stack,
-  setPicture: Function,
+  file: FileElement,
   ...rest: (number | undefined | number[])[]
 ) => {
   const canvas = document.createElement('canvas');
@@ -30,8 +29,8 @@ export const imageOperation = (
     const url = URL.createObjectURL(blob!);
     const img = document.createElement('img');
     img.src = url;
-    setPicture(url);
-    if (callback !== null) stack.add(img);
+    file.setPicture(img);
+    if (callback !== null) file.add(img);
   }, 'image/jpeg');
 };
 
@@ -194,12 +193,8 @@ const kvantation = (
   }
 };
 
-export const makeKvantation = (
-  borders: number,
-  stack: Stack,
-  setPicture: Function
-) => {
-  if (stack === null || stack.isEmpty()) {
+export const makeKvantation = (borders: number, stack: FileElement) => {
+  if (stack.isEmpty()) {
     toast.error('Error occurred!', {
       description: 'Create a File and Load a photo to continue!'
     });
@@ -226,16 +221,12 @@ export const makeKvantation = (
 
   const image = stack.getCurrentPhoto();
   if (image instanceof HTMLImageElement) {
-    imageOperation(image, kvantation, stack, setPicture, myBorders);
+    imageOperation(image, kvantation, stack, myBorders);
   }
 };
 
-export const makeGamma = (
-  gamma: number,
-  stack: Stack,
-  setPicture: Function
-) => {
-  if (stack === null || stack.isEmpty()) {
+export const makeGamma = (gamma: number, stack: FileElement) => {
+  if (stack.isEmpty()) {
     toast.error('Error occurred!', {
       description: 'Create a File and Load a photo to continue!'
     });
@@ -250,7 +241,7 @@ export const makeGamma = (
 
   const image = stack.getCurrentPhoto();
   if (image instanceof HTMLImageElement) {
-    imageOperation(image, gammaFunc, stack, setPicture, gamma);
+    imageOperation(image, gammaFunc, stack, gamma);
   }
 };
 
@@ -258,10 +249,9 @@ export const makeContrast = (
   q1: number,
   q2: number,
   operation: string,
-  stack: Stack,
-  setPicture: Function
+  stack: FileElement
 ) => {
-  if (stack === null || stack.isEmpty()) {
+  if (stack.isEmpty()) {
     toast.error('Error occurred!', {
       description: 'Create a File and Load a photo to continue!'
     });
@@ -272,21 +262,17 @@ export const makeContrast = (
   if (image instanceof HTMLImageElement) {
     switch (operation) {
       case 'more':
-        imageOperation(image, moreContrast, stack, setPicture, q1, q2);
+        imageOperation(image, moreContrast, stack, q1, q2);
         break;
       case 'less':
-        imageOperation(image, lessContrast, stack, setPicture, q1, q2);
+        imageOperation(image, lessContrast, stack, q1, q2);
         break;
     }
   }
 };
 
-export const makeBrighter = (
-  brightnessValue: number,
-  stack: Stack,
-  setPicture: Function
-) => {
-  if (stack === null || stack.isEmpty()) {
+export const makeBrighter = (brightnessValue: number, stack: FileElement) => {
+  if (stack.isEmpty()) {
     toast.error('Error occurred!', {
       description: 'Create a File and Load a photo to continue!'
     });
@@ -295,16 +281,12 @@ export const makeBrighter = (
 
   const image = stack.getCurrentPhoto();
   if (image instanceof HTMLImageElement) {
-    imageOperation(image, brightness, stack, setPicture, brightnessValue);
+    imageOperation(image, brightness, stack, brightnessValue);
   }
 };
 
-export const makeNegative = (
-  negativeValue: number,
-  stack: Stack,
-  setPicture: Function
-) => {
-  if (stack === null || stack.isEmpty()) {
+export const makeNegative = (negativeValue: number, stack: FileElement) => {
+  if (stack.isEmpty()) {
     toast.error('Error occurred!', {
       description: 'Create a File and Load a photo to continue!'
     });
@@ -313,16 +295,12 @@ export const makeNegative = (
 
   const image = stack.getCurrentPhoto();
   if (image instanceof HTMLImageElement) {
-    imageOperation(image, negative, stack, setPicture, negativeValue);
+    imageOperation(image, negative, stack, negativeValue);
   }
 };
 
-export const makeBinary = (
-  binaryValue: number,
-  stack: Stack,
-  setPicture: Function
-) => {
-  if (stack === null || stack.isEmpty()) {
+export const makeBinary = (binaryValue: number, stack: FileElement) => {
+  if (stack.isEmpty()) {
     toast.error('Error occurred!', {
       description: 'Create a File and Load a photo to continue!'
     });
@@ -331,53 +309,45 @@ export const makeBinary = (
 
   const image = stack.getCurrentPhoto();
   if (image instanceof HTMLImageElement) {
-    imageOperation(image, binary, stack, setPicture, binaryValue);
+    imageOperation(image, binary, stack, binaryValue);
   }
 };
 
-export const processFile = (
-  operation: string,
-  stack: Stack,
-  setPicture: Function
-) => {
-  if (stack === null || stack.isEmpty()) {
+export const processFile = (operation: string, file: FileElement) => {
+  if (file.isEmpty()) {
     toast.error('Error occurred!', {
-      description: 'Create a File and Load a photo to continue!'
+      description: 'Load a photo to continue!'
     });
     return;
   }
 
-  const image = stack.getCurrentPhoto();
+  const image = file.getCurrentPhoto();
 
   if (image instanceof HTMLImageElement) {
     if (operation === 'grayScale') {
-      imageOperation(image, grayScale, stack, setPicture);
+      imageOperation(image, grayScale, file);
     } else if (operation === 'brightness') {
-      imageOperation(image, brightness, stack, setPicture);
+      imageOperation(image, brightness, file);
     } else {
-      imageOperation(image, null, stack, setPicture);
+      imageOperation(image, null, file);
     }
   }
 };
 
-export const loadNewPhoto = (
-  photo: File,
-  stack: Stack,
-  setPicture: Function
-) => {
-  stack.makeNew();
-  loadPhoto(photo, stack, setPicture);
+export const loadNewPhoto = (photo: File, file: FileElement) => {
+  file.newStack();
+  loadPhoto(photo, file);
 };
 
-export const loadPhoto = (photo: File, stack: Stack, setPicture: Function) => {
+export const loadPhoto = (photo: File, file: FileElement) => {
   const reader = new FileReader();
 
   reader.onload = (e) => {
     const image = new Image();
 
     image.onload = () => {
-      stack.add(image);
-      processFile('', stack, setPicture);
+      file.add(image);
+      processFile('', file);
     };
 
     image.src = '' + e.target!.result;

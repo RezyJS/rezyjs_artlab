@@ -1,17 +1,15 @@
 'use client'
 
-import StackList from '@/lib/structures';
+import FilesContainer from '@/lib/structures';
 import { SquareX } from 'lucide-react'
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-export default function Tab({ idx, stacks, setStacks }: { idx: number, setStacks: Function, stacks: StackList }) {
+export default function Tab({ idx, files }: { idx: number, files: FilesContainer }) {
   return (
     <div
       className='flex justify-between items-center border rounded-md py-[6px] pl-4 gap-2 cursor-pointer'
       onClick={
         () => {
-          stacks.setCurrentFile(idx);
-          setStacks(new StackList(stacks.getFiles(), idx))
+          files.setCurrentFile(idx);
         }}
     >
       <div className='flex justify-center flex-1'>
@@ -22,14 +20,7 @@ export default function Tab({ idx, stacks, setStacks }: { idx: number, setStacks
         <SquareX className='mx-2 hover:text-red-600 cursor-pointer' onClick={
           (e) => {
             e.stopPropagation();
-            stacks.delFile(idx);
-            if (stacks.getFiles().length === 0) {
-              const stack = new StackList([]);
-              stack.newFile();
-              setStacks(new StackList(stack.getFiles()));
-              return;
-            }
-            setStacks(new StackList(stacks.getFiles()));
+            files.delFile(idx);
           }
         } />
       </div>

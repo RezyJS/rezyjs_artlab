@@ -1,6 +1,16 @@
-export class Stack {
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
+export default class FileElement {
   stack: HTMLImageElement[] = [];
   #pointer: number = -1;
+  #setPicture: Function;
+
+  constructor(setPicture: Function) {
+    this.#setPicture = setPicture;
+  }
+
+  setPicture(image: HTMLImageElement) {
+    this.#setPicture(image);
+  }
 
   add(photo: HTMLImageElement) {
     if (this.#pointer < this.stack.length - 1) {
@@ -11,37 +21,41 @@ export class Stack {
     this.#pointer++;
   }
 
-  isLast() {
+  isLast(): boolean {
     return this.#pointer === this.stack.length - 1;
   }
 
-  isFirst() {
+  isFirst(): boolean {
     return this.#pointer === 0;
   }
 
-  makeNew() {
+  newStack() {
     this.stack.length = 0;
     this.#pointer = -1;
+    this.#setPicture(this.getCurrentPhoto());
   }
 
   reset() {
     this.stack.length = 1;
     this.#pointer = 0;
+    this.#setPicture(this.getCurrentPhoto());
   }
 
   revert() {
     if (this.#pointer > 0) {
       this.#pointer--;
     }
+    this.#setPicture(this.getCurrentPhoto());
   }
 
   undoRevert() {
     if (this.#pointer < this.stack.length - 1) {
       this.#pointer++;
     }
+    this.#setPicture(this.getCurrentPhoto());
   }
 
-  getCurrentPhoto() {
+  getCurrentPhoto(): HTMLImageElement | null {
     if (this.#pointer > -1) {
       return this.stack[this.#pointer];
     }
@@ -49,80 +63,7 @@ export class Stack {
     return null;
   }
 
-  isEmpty() {
+  isEmpty(): boolean {
     return this.stack.length === 0;
-  }
-}
-
-export interface IStackList {
-  id: number;
-  stack: Stack;
-  color: string;
-}
-
-export default class StackList {
-  stackList: IStackList[];
-  #fileId: number = 1;
-  #currentStack: number = -1;
-  #maxLength: number = 20;
-
-  constructor(files: IStackList[], ...rest: number[]) {
-    this.stackList = files;
-    if (files.length > 0) {
-      this.#fileId = files[files.length - 1].id + 1;
-      this.#currentStack = files.length - 1;
-    } else {
-      this.#fileId = 1;
-      this.#currentStack = -1;
-    }
-    if (rest.length > 0 && typeof rest[0] === 'number') {
-      this.setCurrentFile(rest[0]);
-    }
-  }
-
-  currentFile() {
-    if (this.#currentStack === -1) {
-      return null;
-    }
-
-    return this.stackList[this.#currentStack].stack;
-  }
-
-  get currentFileId() {
-    return this.#currentStack;
-  }
-
-  setCurrentFile(id: number) {
-    for (let i = 0; i < this.stackList.length; ++i) {
-      if (this.stackList[i].id === id) {
-        this.#currentStack = i;
-      }
-    }
-  }
-
-  newFile() {
-    if (this.stackList.length < this.#maxLength) {
-      this.#currentStack = this.stackList.length;
-      this.stackList.push({
-        id: this.#fileId++,
-        stack: new Stack(),
-        color: 'text-[var(--accent-color)]'
-      });
-    }
-  }
-
-  delFile(idx: number) {
-    this.stackList = this.stackList.filter(({ id }) => id !== idx);
-    this.#currentStack -= 1;
-  }
-
-  delFileAll() {
-    this.stackList.length = 0;
-    this.#fileId = 1;
-    this.#currentStack = -1;
-  }
-
-  getFiles() {
-    return this.stackList;
   }
 }

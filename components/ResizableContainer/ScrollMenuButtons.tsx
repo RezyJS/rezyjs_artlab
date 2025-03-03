@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
-import StackList from "@/lib/structures";
+import FileElement from "@/lib/structures";
 import FirstSeminar from "../PhotoChangersButtons/FirstSeminar";
 import { Button } from "../ui/button";
 import {
@@ -18,13 +18,13 @@ const DefaultButton = ({ setFunctions, component, text }: { setFunctions: Functi
   );
 }
 
-export const ButtonsList = ({ stacks, setPicture, setFunctions }: { stacks: StackList, setPicture: Function, setFunctions: Function }) => {
+export const ButtonsList = ({ file, setFunctions }: { file: FileElement, setFunctions: Function }) => {
   return (
     <ScrollArea>
       <div className="flex gap-5">
         <DefaultButton
           setFunctions={setFunctions}
-          component={<FirstSeminar stacks={stacks} setPicture={setPicture} />}
+          component={<FirstSeminar file={file} />}
           text='Colors'
         />
         <DefaultButton

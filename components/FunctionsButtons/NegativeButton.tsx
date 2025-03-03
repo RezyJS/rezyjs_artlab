@@ -4,7 +4,7 @@ import { Slider } from "../ui/slider";
 import { ArrowDownUp } from "lucide-react";
 import { makeNegative } from "@/lib/photos";
 
-export const NegativeButton = ({ stacks, setPicture }: defaultButtonNeeds) => {
+export const NegativeButton = ({ file }: defaultButtonNeeds) => {
   const [value, setValue] = useState(10);
 
   return (
@@ -14,7 +14,7 @@ export const NegativeButton = ({ stacks, setPicture }: defaultButtonNeeds) => {
       <div className="flex justify-evenly">
         <MyDefaultButton
           text='Negative'
-          callback={() => makeNegative(value, stacks.currentFile()!, setPicture)}
+          callback={() => makeNegative(value, file)}
         >
           <ArrowDownUp />
         </MyDefaultButton>

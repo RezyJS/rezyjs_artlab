@@ -5,7 +5,7 @@ import {
   PopoverTrigger,
   PopoverContent
 } from '@/components/ui/popover'
-import StackList from "@/lib/structures";
+import FileElement from "@/lib/structures";
 
 export const MyDefaultButton = ({ text, callback, children }: { text: string, callback: Function, children?: React.ReactNode }) => (
   <Button
@@ -39,6 +39,5 @@ export const MyButtonWithPopover = (
 }
 
 export interface defaultButtonNeeds {
-  stacks: StackList,
-  setPicture: Function
+  file: FileElement
 }
