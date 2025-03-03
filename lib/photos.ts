@@ -57,7 +57,6 @@ const brightness = (
     const red = clamp(pixels[i] + brightnessValue);
     const green = clamp(pixels[i + 1] + brightnessValue);
     const blue = clamp(pixels[i + 2] + brightnessValue);
-    // const alpha = pixels[i + 3];
 
     pixels[i] = red;
     pixels[i + 1] = green;

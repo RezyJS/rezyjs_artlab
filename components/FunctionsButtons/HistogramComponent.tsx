@@ -23,36 +23,42 @@ const getPixels = (file: FileElement): ChartData => {
   const photo = file.getCurrentPhoto()!;
 
   const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d')!;
 
   canvas.width = photo.width;
   canvas.height = photo.height;
 
-  ctx!.drawImage(photo, 0, 0);
+  ctx.drawImage(photo, 0, 0);
 
-  const imageData = ctx!.getImageData(0, 0, canvas.width, canvas.height).data;
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const pixels = imageData.data;
 
-  const pixels: number[] = [];
+  const myPixels: number[] = [];
+
   let amount = 0;
 
-  imageData.forEach((val: number) => {
-    if (pixels[val] === undefined) {
-      pixels[val] = 0;
-    }
+  for (let i = 0; i < pixels.length; i += 4) {
+    for (let j = i; j < i + 3; ++j) {
+      if (myPixels[pixels[j]] === undefined) {
+        myPixels[pixels[j]] = 0;
+      }
 
-    pixels[val] += 1;
-    ++amount;
-  });
+      myPixels[pixels[j]] += 1;
+      ++amount;
+    }
+  }
 
   const answer: ChartData = [];
-  for (let i = 0; i < pixels.length; ++i) {
-    const value = pixels[i] / amount * 100;
+  for (let i = 0; i < myPixels.length; ++i) {
+    const value = myPixels[i] / amount * 100;
     if (isNaN(value)) {
       answer.push({ pixel_id: i, value: 0 });
     } else {
       answer.push({ pixel_id: i, value: value });
     }
   }
+
+  console.info(answer);
 
   return answer;
 }
@@ -71,12 +77,12 @@ export default function Histogram({ file }: { file: FileElement }) {
         <CartesianGrid vertical={false} />
         <XAxis
           dataKey="pixel_id"
-          tickLine={false}
+          tickLine={true}
           tickMargin={10}
           axisLine={false}
         />
         <ChartTooltip
-          cursor={false}
+          cursor={true}
           content={<ChartTooltipContent hideLabel />}
         />
         <Bar dataKey="value" fill="var(--light-accent-color)" radius={4} />
