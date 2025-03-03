@@ -58,8 +58,6 @@ const getPixels = (file: FileElement): ChartData => {
     }
   }
 
-  console.info(answer);
-
   return answer;
 }
 
