@@ -23,9 +23,27 @@ import FileElement from "@/lib/structures";
 export default function ImageLoader({ file }: { file: FileElement, picture: string }) {
   return (
     <ContextMenu>
-      <ContextMenuTrigger className="h-full">
-        <label className="h-full flex flex-col justify-center items-center gap-5 cursor-pointer w-full p-6 object-contain">
-          <img src={file.getCurrentPhoto() ? file.getCurrentPhoto()!.src : '/placeholder.jpg'} alt="image" width={0} height={0} sizes="100vh" className="max-w-fit max-h-fit h-full w-full object-contain" />
+      <ContextMenuTrigger
+        className="h-full p-6"
+      >
+        <label
+          className={`h-full flex flex-col justify-center items-center gap-1 cursor-pointer w-full object-contain ${file.isEmpty() ? 'p-6' : null}`}
+        >
+          {
+            file.isEmpty() ?
+              <div className="flex flex-col text-center font-semibold text-lg">
+                <p>Click to load image<br />&dArr;</p>
+              </div>
+              : <></>
+          }
+          <img
+            src={file.getCurrentPhoto() ? file.getCurrentPhoto()!.src : '/placeholder.jpg'}
+            alt="image"
+            width={0}
+            height={0}
+            sizes="100vh"
+            className='max-w-fit max-h-fit h-full w-full object-contain'
+          />
           <input
             type="file"
             name="input"
