@@ -5,7 +5,7 @@ import { Input } from "../ui/input";
 import { makeGamma } from "@/lib/photos";
 
 export const GammaButton = ({ file }: defaultButtonNeeds) => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(1);
 
   return (
     <MyButtonWithPopover text='Gamma'>
