@@ -2,7 +2,7 @@
 
 'use client'
 
-import { loadNewPhoto } from "@/lib/photos";
+import { loadNewPhoto } from "@/lib/photosHandlers";
 import { toast } from "sonner";
 import {
   ContextMenu,

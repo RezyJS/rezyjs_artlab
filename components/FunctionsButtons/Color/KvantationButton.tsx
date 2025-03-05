@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { defaultButtonNeeds, MyButtonWithPopover, MyDefaultButton } from "./Buttons";
 import { CircleCheck } from "lucide-react";
-import { Input } from "../ui/input";
-import { makeKvantation } from "@/lib/photos";
+import { Input } from "../../ui/input";
+import { makeKvantation } from "@/lib/photosHandlers";
 
 export const KvantationButton = ({ file }: defaultButtonNeeds) => {
   const [value, setValue] = useState(1);

@@ -1,13 +1,14 @@
-import { GrayScaleButton } from "../FunctionsButtons/GrayScaleButton";
-import { BrightnessButton } from "../FunctionsButtons/BrightnessButton";
-import { NegativeButton } from "../FunctionsButtons/NegativeButton";
-import { BinarizationButton } from "../FunctionsButtons/BinarizationButton";
-import { HistogramButton } from "../FunctionsButtons/HistogramButton";
-import { ContrastButton } from "../FunctionsButtons/ContrastButton";
-import { GammaButton } from "../FunctionsButtons/GammaButton";
-import { KvantationButton } from "../FunctionsButtons/KvantationButton";
-import { PseudoColoringButton } from "../FunctionsButtons/PseudoColoringButton";
+import { GrayScaleButton } from "../FunctionsButtons/Color/GrayScaleButton";
+import { BrightnessButton } from "../FunctionsButtons/Color/BrightnessButton";
+import { NegativeButton } from "../FunctionsButtons/Color/NegativeButton";
+import { BinarizationButton } from "../FunctionsButtons/Color/BinarizationButton";
+import { HistogramButton } from "../FunctionsButtons/Color/HistogramButton";
+import { ContrastButton } from "../FunctionsButtons/Color/ContrastButton";
+import { GammaButton } from "../FunctionsButtons/Color/GammaButton";
+import { KvantationButton } from "../FunctionsButtons/Color/KvantationButton";
+import { PseudoColoringButton } from "../FunctionsButtons/Color/PseudoColoringButton";
 import FileElement from "@/lib/structures";
+import { SolarizationButton } from "../FunctionsButtons/Color/SolarizationButton";
 
 export default function FirstSeminar({ file }: { file: FileElement }) {
   return (
@@ -22,6 +23,7 @@ export default function FirstSeminar({ file }: { file: FileElement }) {
         <GammaButton file={file} />
         <KvantationButton file={file} />
         <PseudoColoringButton file={file} />
+        <SolarizationButton file={file} />
       </div>
     </div>
   );

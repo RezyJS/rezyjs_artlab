@@ -8,12 +8,12 @@ import {
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { ArrowLeft, ArrowRight, CircleCheck } from 'lucide-react';
 import { MyDefaultButton } from './Buttons';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
+import { Button } from '../../ui/button';
+import { Input } from '../../ui/input';
 import FileElement from '@/lib/structures';
 import { useState } from 'react';
-import { ColorPicker } from '../ui/color-picker';
-import { makePseudoColoring } from '@/lib/photos';
+import { ColorPicker } from '../../ui/color-picker';
+import { makePseudoColoring } from '@/lib/photosHandlers';
 
 export const PseudoColoringDialog = ({ bordersCount, file }: { bordersCount: number, file: FileElement }) => {
 

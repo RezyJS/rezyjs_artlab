@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { defaultButtonNeeds, MyButtonWithPopover, MyDefaultButton } from "./Buttons";
 import { ArrowDown, ArrowUp } from "lucide-react";
-import { Input } from "../ui/input";
-import { makeContrast } from "@/lib/photos";
+import { Input } from "../../ui/input";
+import { makeContrast } from "@/lib/photosHandlers";
 
 export const ContrastButton = ({ file }: defaultButtonNeeds) => {
   const [lowerValue, setLowerValue] = useState(0);

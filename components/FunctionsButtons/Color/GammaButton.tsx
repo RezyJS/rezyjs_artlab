@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { defaultButtonNeeds, MyButtonWithPopover, MyDefaultButton } from "./Buttons";
 import { CircleCheck } from "lucide-react";
-import { Input } from "../ui/input";
-import { makeGamma } from "@/lib/photos";
+import { Input } from "../../ui/input";
+import { makeGamma } from "@/lib/photosHandlers";
 
 export const GammaButton = ({ file }: defaultButtonNeeds) => {
   const [value, setValue] = useState(1);

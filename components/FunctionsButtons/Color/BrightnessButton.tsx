@@ -1,7 +1,7 @@
 import { Moon, Sun } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
-import { defaultButtonNeeds, MyButtonWithPopover, MyDefaultButton } from "@/components/FunctionsButtons/Buttons";
-import { makeBrighter } from "@/lib/photos";
+import { defaultButtonNeeds, MyButtonWithPopover, MyDefaultButton } from "@/components/FunctionsButtons/Color/Buttons";
+import { makeBrighter } from "@/lib/photosHandlers";
 import { useState } from "react";
 
 export const BrightnessButton = ({ file }: defaultButtonNeeds) => {

@@ -1,8 +1,8 @@
 import { ChartColumnBig } from "lucide-react";
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../../ui/dialog";
 import { defaultButtonNeeds } from "./Buttons";
 import Histogram from "./HistogramComponent";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 
 export const HistogramButton = ({ file }: defaultButtonNeeds) => (
   <Dialog>

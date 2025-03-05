@@ -1,5 +1,5 @@
-import { defaultButtonNeeds, MyDefaultButton } from "@/components/FunctionsButtons/Buttons";
-import { processFile } from "@/lib/photos";
+import { defaultButtonNeeds, MyDefaultButton } from "@/components/FunctionsButtons/Color/Buttons";
+import { processFile } from "@/lib/photosHandlers";
 
 export const GrayScaleButton = ({ file }: defaultButtonNeeds) => (
   <MyDefaultButton

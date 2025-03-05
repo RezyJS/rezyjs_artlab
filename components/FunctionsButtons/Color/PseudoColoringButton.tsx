@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { defaultButtonNeeds, MyButtonWithPopover } from "./Buttons";
-import { Input } from "../ui/input";
+import { Input } from "../../ui/input";
 import { PseudoColoringDialog } from "./PseudoColoringDialog";
 
 export const PseudoColoringButton = ({ file }: defaultButtonNeeds) => {
