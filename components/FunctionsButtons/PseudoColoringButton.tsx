@@ -9,12 +9,13 @@ export const PseudoColoringButton = ({ file }: defaultButtonNeeds) => {
   return (
     <MyButtonWithPopover text='Pseudo Coloring'>
       <p>Number of intervals: {value}</p>
-      <Input type='number' onChange={(e) => {
-        const val = +e.target.value;
-        if (val > 0 && val < 256) {
-          setValue(val);
-        }
-      }} />
+      <Input type='number' onChange={
+        (e) => {
+          const val = +e.target.value;
+          if (val > 0 && val < 256) {
+            setValue(val);
+          }
+        }} />
       <PseudoColoringDialog bordersCount={value} file={file} />
     </MyButtonWithPopover >
   );

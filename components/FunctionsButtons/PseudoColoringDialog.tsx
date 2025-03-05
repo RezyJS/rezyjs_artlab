@@ -20,7 +20,6 @@ export const PseudoColoringDialog = ({ bordersCount, file }: { bordersCount: num
   const [borders, setBorders] = useState([0]);
   const [colors, setColors] = useState<Array<string>>([]);
   const [, setColor] = useState('#ffffff');
-  const [,] = useState({ bordersCount, file });
   const [currentBorder, setCurrentBorder] = useState(1);
   const [prevBorderVal, setPrevBorderVal] = useState(borders[0]);
 

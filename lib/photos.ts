@@ -235,7 +235,7 @@ export const makePseudoColoring = (
 ) => {
   if (stack.isEmpty()) {
     toast.error('Error occurred!', {
-      description: 'Create a File and Load a photo to continue!'
+      description: 'Load a photo to continue!'
     });
     return;
   }
@@ -249,14 +249,14 @@ export const makePseudoColoring = (
 export const makeKvantation = (borders: number, stack: FileElement) => {
   if (stack.isEmpty()) {
     toast.error('Error occurred!', {
-      description: 'Create a File and Load a photo to continue!'
+      description: 'Load a photo to continue!'
     });
     return;
   }
 
   if (borders <= 0) {
     toast.error('Wrong value', {
-      description: 'You can only enter non-negative numbers'
+      description: 'Passed value that was not a number or less than 0'
     });
     return;
   }
@@ -270,7 +270,7 @@ export const makeKvantation = (borders: number, stack: FileElement) => {
 export const makeGamma = (gamma: number, stack: FileElement) => {
   if (stack.isEmpty()) {
     toast.error('Error occurred!', {
-      description: 'Create a File and Load a photo to continue!'
+      description: 'Load a photo to continue!'
     });
     return;
   }
@@ -295,7 +295,7 @@ export const makeContrast = (
 ) => {
   if (stack.isEmpty()) {
     toast.error('Error occurred!', {
-      description: 'Create a File and Load a photo to continue!'
+      description: 'Load a photo to continue!'
     });
     return;
   }
@@ -316,7 +316,7 @@ export const makeContrast = (
 export const makeBrighter = (brightnessValue: number, stack: FileElement) => {
   if (stack.isEmpty()) {
     toast.error('Error occurred!', {
-      description: 'Create a File and Load a photo to continue!'
+      description: 'Load a photo to continue!'
     });
     return;
   }
@@ -330,7 +330,7 @@ export const makeBrighter = (brightnessValue: number, stack: FileElement) => {
 export const makeNegative = (negativeValue: number, stack: FileElement) => {
   if (stack.isEmpty()) {
     toast.error('Error occurred!', {
-      description: 'Create a File and Load a photo to continue!'
+      description: 'Load a photo to continue!'
     });
     return;
   }
@@ -344,7 +344,7 @@ export const makeNegative = (negativeValue: number, stack: FileElement) => {
 export const makeBinary = (binaryValue: number, stack: FileElement) => {
   if (stack.isEmpty()) {
     toast.error('Error occurred!', {
-      description: 'Create a File and Load a photo to continue!'
+      description: 'Load a photo to continue!'
     });
     return;
   }

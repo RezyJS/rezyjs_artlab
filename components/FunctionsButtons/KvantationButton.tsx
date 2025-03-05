@@ -5,7 +5,7 @@ import { Input } from "../ui/input";
 import { makeKvantation } from "@/lib/photos";
 
 export const KvantationButton = ({ file }: defaultButtonNeeds) => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(1);
 
   return (
     <MyButtonWithPopover text='Kvantation'>
