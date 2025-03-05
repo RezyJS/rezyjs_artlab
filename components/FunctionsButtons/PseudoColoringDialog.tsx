@@ -39,7 +39,7 @@ export const PseudoColoringDialog = ({ bordersCount, file }: { bordersCount: num
         <ScrollArea className='flex flex-col gap-2 min-h-[10vh] max-h-[90vh] max-w-[90vw] justify-evenly overflow-hidden'>
           <DialogTitle >Intervals coloring</DialogTitle>
           <DialogDescription>Input right borders of your intervals</DialogDescription>
-          <div className=flex flex-col justify-center items-center h-full w-full p-5 gap-5'>
+          <div className='flex flex-col justify-center items-center h-full w-full p-5 gap-5'>
             {
               currentBorder < bordersCount ?
                 <div className='flex gap-5'>
