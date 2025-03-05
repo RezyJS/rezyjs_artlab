@@ -221,13 +221,15 @@ const pseudoColoring = (
   }
 
   for (let i = 0; i < pixels.length; i += 4) {
-    const red = getColors(ranges[pixels[i]]).red;
-    const green = getColors(ranges[pixels[i + 1]]).green;
-    const blue = getColors(ranges[pixels[i + 2]]).blue;
+    const red = pixels[i];
+    const green = pixels[i + 1];
+    const blue = pixels[i + 2];
 
-    pixels[i] = red;
-    pixels[i + 1] = green;
-    pixels[i + 2] = blue;
+    const I = 0.3 * red + 0.59 * green + 0.11 * blue;
+
+    pixels[i] = getColors(ranges[I]).red;
+    pixels[i + 1] = getColors(ranges[I]).green;
+    pixels[i + 2] = getColors(ranges[I]).blue;
   }
 };
 
