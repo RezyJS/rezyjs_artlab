@@ -53,7 +53,7 @@ const ColorPicker = forwardRef<
             <div />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className='w-full'>
+        <PopoverContent className='w-full flex gap-5'>
           <HexColorPicker color={parsedValue} onChange={onChange} />
           <Input
             maxLength={7}
@@ -62,6 +62,7 @@ const ColorPicker = forwardRef<
             }}
             ref={ref}
             value={parsedValue}
+            className='text-white'
           />
         </PopoverContent>
       </Popover>
