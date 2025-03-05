@@ -208,28 +208,23 @@ const pseudoColoring = (
 
   const ranges: string[] = [];
 
-  if (borders.length === 1) {
-    for (let i = 0; i < 256; ++i) {
-      ranges.push(colors[0]);
-    }
-  } else {
-    for (let i = 0; i < borders.length - 1; ++i) {
-      for (let j = borders[i]; j <= borders[i + 1]; ++j) {
-        ranges[j] = colors[i];
-      }
+  for (let i = 0; i < borders.length - 1; ++i) {
+    for (let j = borders[i]; j <= borders[i + 1]; ++j) {
+      ranges[j] = colors[i];
     }
   }
 
   for (let i = 0; i < pixels.length; i += 4) {
-    const red = pixels[i];
-    const green = pixels[i + 1];
-    const blue = pixels[i + 2];
+    const R = pixels[i];
+    const G = pixels[i + 1];
+    const B = pixels[i + 2];
 
-    const I = 0.3 * red + 0.59 * green + 0.11 * blue;
+    const I = +(0.3 * R + 0.59 * G + 0.11 * B).toFixed(0);
+    const { red, green, blue } = getColors(ranges[I]);
 
-    pixels[i] = getColors(ranges[I]).red;
-    pixels[i + 1] = getColors(ranges[I]).green;
-    pixels[i + 2] = getColors(ranges[I]).blue;
+    pixels[i] = red;
+    pixels[i + 1] = green;
+    pixels[i + 2] = blue;
   }
 };
 
