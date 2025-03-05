@@ -19,7 +19,7 @@ export const HorizontalView = (
         <ImageLoader file={file} picture={picture} />
       </ResizablePanel>
       <ResizableHandle withHandle />
-      <ResizablePanel defaultSize={50} minSize={20}>
+      <ResizablePanel defaultSize={25} minSize={25}>
         <Horizontal file={file} />
       </ResizablePanel>
     </ResizablePanelGroup>
