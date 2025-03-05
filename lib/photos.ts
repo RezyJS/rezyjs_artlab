@@ -6,7 +6,7 @@ export const imageOperation = (
   image: HTMLImageElement,
   callback: Function | null,
   file: FileElement,
-  ...rest: (number | undefined | number[])[]
+  ...rest: unknown[]
 ) => {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d')!;
@@ -186,6 +186,66 @@ const kvantation = (
     pixels[i] = quants[pixels[i]];
     pixels[i + 1] = quants[pixels[i + 1]];
     pixels[i + 2] = quants[pixels[i + 2]];
+  }
+};
+
+const getColors = (num: string) => {
+  const answer: number[] = [];
+
+  for (let i = 1; i < 6; i += 2) {
+    answer.push(+('0x' + num.slice(i, i + 2)));
+  }
+
+  return { red: answer[0], green: answer[1], blue: answer[2] };
+};
+
+const pseudoColoring = (
+  pixels: Uint8ClampedArray<ArrayBufferLike>,
+  ...rest: [number[], string[]]
+) => {
+  const borders: number[] = rest[0];
+  const colors: string[] = rest[1];
+
+  const ranges: string[] = [];
+
+  if (borders.length === 1) {
+    for (let i = 0; i < 256; ++i) {
+      ranges.push(colors[0]);
+    }
+  } else {
+    for (let i = 0; i < borders.length - 1; ++i) {
+      for (let j = borders[i]; j <= borders[i + 1]; ++j) {
+        ranges[j] = colors[i];
+      }
+    }
+  }
+
+  for (let i = 0; i < pixels.length; i += 4) {
+    const red = getColors(ranges[pixels[i]]).red;
+    const green = getColors(ranges[pixels[i + 1]]).green;
+    const blue = getColors(ranges[pixels[i + 2]]).blue;
+
+    pixels[i] = red;
+    pixels[i + 1] = green;
+    pixels[i + 2] = blue;
+  }
+};
+
+export const makePseudoColoring = (
+  borders: number[],
+  colors: string[],
+  stack: FileElement
+) => {
+  if (stack.isEmpty()) {
+    toast.error('Error occurred!', {
+      description: 'Create a File and Load a photo to continue!'
+    });
+    return;
+  }
+
+  const image = stack.getCurrentPhoto();
+  if (image instanceof HTMLImageElement) {
+    imageOperation(image, pseudoColoring, stack, borders, colors);
   }
 };
 
