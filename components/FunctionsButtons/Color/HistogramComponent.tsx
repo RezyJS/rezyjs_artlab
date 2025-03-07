@@ -1,6 +1,6 @@
 "use client"
 
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { Line, LineChart, CartesianGrid, XAxis } from "recharts"
 
 import {
   ChartConfig,
@@ -15,12 +15,15 @@ import { Checkbox } from "@/components/ui/checkbox"
 const chartConfig = {
   red: {
     label: "Red",
+    color: '#ff0000'
   },
   green: {
     label: "Green",
+    color: '#00ff00'
   },
   blue: {
     label: "Blue",
+    color: '#0000ff'
   },
 } satisfies ChartConfig
 
@@ -92,7 +95,7 @@ export default function Histogram({ file }: { file: FileElement }) {
   return (
     <div className="flex flex-col gap-5 w-[80vw] h-[80vh]">
       <ChartContainer config={chartConfig} className="w-[80vw] h-[70vh]">
-        <BarChart accessibilityLayer data={data}>
+        <LineChart accessibilityLayer data={data}>
           <CartesianGrid vertical={false} />
           <XAxis
             dataKey="pixel_id"
@@ -106,20 +109,20 @@ export default function Histogram({ file }: { file: FileElement }) {
           />
           {
             showRed ?
-              <Bar dataKey="red" fill="#ff0000" radius={4} stackId='a' />
+              <Line dataKey="red" fill="#ff0000" radius={4} type={'linear'} dot={false} stroke='#ff0000' />
               : <></>
           }
           {
             showGreen ?
-              <Bar dataKey="green" fill="#00ff00" radius={4} stackId='b' />
+              <Line dataKey="green" fill="#00ff00" radius={4} type={'linear'} dot={false} stroke='#00ff00' />
               : <></>
           }
           {
             showBlue ?
-              <Bar dataKey="blue" fill="#0000ff" radius={4} stackId='a' />
+              <Line dataKey="blue" fill="#0000ff" radius={4} type={'linear'} dot={false} stroke='#0000ff' />
               : <></>
           }
-        </BarChart>
+        </LineChart>
       </ChartContainer>
       <div className="flex justify-center items-center gap-5">
         <label className="flex items-center justify-center gap-2">
