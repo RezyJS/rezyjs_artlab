@@ -25,17 +25,6 @@ export default function ImageLoader({ file }: { file: FileElement, picture: stri
         height={0}
         sizes="100vh"
         className='max-w-fit max-h-fit h-full w-full object-contain'
-        onDrop={
-          (e) => {
-            e.preventDefault();
-            if (e.dataTransfer.items) {
-              if (e.dataTransfer.items[0].getAsFile()?.type.startsWith('image')) {
-                const myFile = e.dataTransfer.items[0].getAsFile();
-                loadNewPhoto(myFile!, file);
-              }
-            }
-          }
-        }
       />
       <input
         type="file"
