@@ -84,7 +84,7 @@ export const PseudoColoringDialog = ({ bordersCount, file }: { bordersCount: num
                     />
                   </div>
                   : <Button
-                    disabled={borders.filter(item => item !== undefined).length !== bordersCount || borders.includes(255)}
+                    disabled={borders.filter(item => item !== undefined).length - 1 !== bordersCount - 1 || borders.includes(255)}
                     onClick={() => {
                       borders.push(255);
                       setBorders(borders);
