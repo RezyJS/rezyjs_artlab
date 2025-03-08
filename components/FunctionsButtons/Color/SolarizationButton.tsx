@@ -1,4 +1,4 @@
-import { makeSolarization } from "@/lib/photosHandlers";
+import { makeSolarization } from "@/lib/photosColor";
 import { Sun } from "lucide-react";
 import { useState } from "react";
 import { defaultButtonNeeds, MyButtonWithPopover, MyDefaultButton } from "./Buttons";

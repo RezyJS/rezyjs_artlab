@@ -2,7 +2,7 @@ import { useState } from "react";
 import { defaultButtonNeeds, MyButtonWithPopover, MyDefaultButton } from "./Buttons";
 import { Slider } from "../../ui/slider";
 import { ArrowDownUp } from "lucide-react";
-import { makeNegative } from "@/lib/photosHandlers";
+import { makeNegative } from "@/lib/photosColor";
 
 export const NegativeButton = ({ file }: defaultButtonNeeds) => {
   const [value, setValue] = useState(10);

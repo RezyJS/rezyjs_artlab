@@ -13,7 +13,7 @@ import { Input } from '../../ui/input';
 import FileElement from '@/lib/structures';
 import { useState } from 'react';
 import { ColorPicker } from '../../ui/color-picker';
-import { makePseudoColoring } from '@/lib/photosHandlers';
+import { makePseudoColoring } from '@/lib/photosColor';
 
 export const PseudoColoringDialog = ({ bordersCount, file }: { bordersCount: number, file: FileElement }) => {
 

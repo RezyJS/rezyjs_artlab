@@ -10,7 +10,7 @@ import { PseudoColoringButton } from "../FunctionsButtons/Color/PseudoColoringBu
 import FileElement from "@/lib/structures";
 import { SolarizationButton } from "../FunctionsButtons/Color/SolarizationButton";
 
-export default function FirstSeminar({ file }: { file: FileElement }) {
+export default function ColorButtons({ file }: { file: FileElement }) {
   return (
     <div className="@container">
       <div className="grid grid-cols-2 @md:grid-cols-3 @xl:grid-cols-4 @3xl:grid-cols-5 @4xl:grid-cols-6 @6xl:grid-cols-7 gap-5 p-6 h-full">

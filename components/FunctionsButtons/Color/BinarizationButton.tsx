@@ -2,7 +2,7 @@ import { useState } from "react";
 import { defaultButtonNeeds, MyButtonWithPopover, MyDefaultButton } from "./Buttons";
 import { Slider } from "../../ui/slider";
 import { Binary } from "lucide-react";
-import { makeBinary } from "@/lib/photosHandlers";
+import { makeBinary } from "@/lib/photosColor";
 
 export const BinarizationButton = ({ file }: defaultButtonNeeds) => {
   const [value, setValue] = useState(10);

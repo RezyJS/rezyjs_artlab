@@ -2,7 +2,7 @@
 
 'use client'
 
-import { loadNewPhoto } from "@/lib/photosHandlers";
+import { loadNewPhoto } from "@/lib/photosMain";
 import { toast } from "sonner";
 import FileElement from "@/lib/structures";
 

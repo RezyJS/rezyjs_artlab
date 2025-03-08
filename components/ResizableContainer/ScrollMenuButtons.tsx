@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
 import FileElement from "@/lib/structures";
-import FirstSeminar from "../PhotoChangersButtons/FirstSeminar";
+import ColorButtons from "../PhotoChangersButtons/ColorButtons";
 import { Button } from "../ui/button";
 import {
   ScrollArea,
   ScrollBar
 } from "../ui/scroll-area";
+import NoiseButtons from "../PhotoChangersButtons/NoiseButtons";
 
 const DefaultButton = ({ setFunctions, component, text }: { setFunctions: Function, component: React.ReactNode, text: string }) => {
   return (
@@ -24,12 +25,12 @@ export const ButtonsList = ({ file, setFunctions }: { file: FileElement, setFunc
       <div className="flex gap-5">
         <DefaultButton
           setFunctions={setFunctions}
-          component={<FirstSeminar file={file} />}
+          component={<ColorButtons file={file} />}
           text='Colors'
         />
         <DefaultButton
           setFunctions={setFunctions}
-          component={null}
+          component={<NoiseButtons file={file} />}
           text='Noises'
         />
         <ScrollBar orientation="horizontal" />
