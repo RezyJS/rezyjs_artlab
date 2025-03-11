@@ -237,10 +237,10 @@ const medianFilter = (
   const _pixels = [...pixels];
 
   for (let i = startStep; i < lastLine; i += step) {
-    for (let j = 0; j < step; ++j) {
+    for (let j = offsetValue; j < step - offsetValue; ++j) {
       const arr: number[] = [];
 
-      for (let sign = -1; sign < 2; ++sign) {
+      for (let sign = -1; sign <= 1; ++sign) {
         for (let offset = -offsetValue; offset <= offsetValue; offset += 4) {
           arr.push(_pixels[i + j + sign * step + offset]);
         }
