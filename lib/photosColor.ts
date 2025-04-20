@@ -2,7 +2,7 @@ import { toast } from 'sonner';
 import FileElement from './structures';
 import { imageOperation } from './photosMain';
 
-export const clamp = (num: number) => Math.min(Math.max(num, 0), 255);
+export const clamp = (value: number) => Math.max(0, Math.min(255, value));
 
 export const makeSolarization = (k: number, stack: FileElement) => {
   if (stack.isEmpty()) {

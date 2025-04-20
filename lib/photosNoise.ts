@@ -1,7 +1,17 @@
 import { toast } from 'sonner';
 import FileElement from './structures';
 import { imageOperation } from './photosMain';
-import { clamp } from './photosColor';
+import {
+  H1_highFreq,
+  H1_lowFreq,
+  // H1_lowFreq,
+  // H2_lowFreq,
+  // H3_lowFreq,
+  // H1_highFreq,
+  // H2_highFreq,
+  // H3_highFreq,
+  pixelSum3
+} from './Matrixes';
 
 export const makeLowFreq = (core: 'H1' | 'H2' | 'H3', file: FileElement) => {
   if (file.isEmpty()) {
@@ -13,84 +23,44 @@ export const makeLowFreq = (core: 'H1' | 'H2' | 'H3', file: FileElement) => {
 
   const image = file.getCurrentPhoto();
   if (image instanceof HTMLImageElement) {
-    imageOperation(image, lowFreq, file, image.width, core);
+    imageOperation(image, lowFreq, file, image.width, image.height, core);
   }
 };
 
 const lowFreq = (
   pixels: Uint8ClampedArray<ArrayBufferLike>,
-  ...rest: [width: number, core: 'H1' | 'H2' | 'H3']
+  ...rest: [width: number, height: number, core: 'H1' | 'H2' | 'H3']
 ) => {
-  const width = rest[0];
-  const core = rest[1];
+  const [width, height, core] = rest;
+  const w = width * 4,
+    len = w * height;
+
+  const pixelsCopy = [...pixels];
 
   switch (core) {
     case 'H1': {
-      const step = width * 4;
-      const lastLine = pixels.length - step - 4;
-      for (let i = step + 4; i < lastLine; i += step) {
-        for (let j = 0; j < step; ++j) {
-          const upperLine =
-            pixels[i + j - step - 4] +
-            pixels[i + j - step] +
-            pixels[i + j - step + 4];
-
-          const middleLine =
-            pixels[i + j - 4] + pixels[i + j] + pixels[i + j + 4];
-
-          const lowerLine =
-            pixels[i + j + step - 4] +
-            pixels[i + j + step] +
-            pixels[i + j + step + 4];
-
-          pixels[i + j] = clamp((upperLine + middleLine + lowerLine) / 9);
+      for (let line = width * 4; line < len - w; ++line) {
+        for (let px = 4; px < w - 4; px += 4) {
+          pixels[line + px] = pixelSum3(pixelsCopy, w, line + px, H1_lowFreq);
         }
       }
     }
-    case 'H2': {
-      const step = width * 4;
-      const lastLine = pixels.length - step - 4;
-      for (let i = step + 4; i < lastLine; i += step) {
-        for (let j = 0; j < step; ++j) {
-          const upperLine =
-            pixels[i + j - step - 4] +
-            pixels[i + j - step] +
-            pixels[i + j - step + 4];
-
-          const middleLine =
-            pixels[i + j - 4] + 2 * pixels[i + j] + pixels[i + j + 4];
-
-          const lowerLine =
-            pixels[i + j + step - 4] +
-            pixels[i + j + step] +
-            pixels[i + j + step + 4];
-
-          pixels[i + j] = clamp((upperLine + middleLine + lowerLine) / 10);
-        }
-      }
-    }
-    case 'H3': {
-      const step = width * 4;
-      const lastLine = pixels.length - step - 4;
-      for (let i = step + 4; i < lastLine; i += step) {
-        for (let j = 0; j < step; ++j) {
-          const upperLine =
-            pixels[i + j - step - 4] +
-            pixels[i + j - step] * 2 +
-            pixels[i + j - step + 4];
-
-          const middleLine =
-            2 * pixels[i + j - 4] + 4 * pixels[i + j] + 2 * pixels[i + j + 4];
-
-          const lowerLine =
-            pixels[i + j + step - 4] +
-            pixels[i + j + step] * 2 +
-            pixels[i + j + step + 4];
-
-          pixels[i + j] = clamp((upperLine + middleLine + lowerLine) / 16);
-        }
-      }
-    }
+    //     case 'H2': {
+    //       processMatrix({
+    //         width,
+    //         height,
+    //         pixels,
+    //         coefficients: H2_lowFreq
+    //       });
+    //     }
+    //     case 'H3': {
+    //       processMatrix({
+    //         width,
+    //         height,
+    //         pixels,
+    //         coefficients: H3_lowFreq
+    //       });
+    //     }
   }
 };
 
@@ -104,84 +74,44 @@ export const makeHighFreq = (core: 'H1' | 'H2' | 'H3', file: FileElement) => {
 
   const image = file.getCurrentPhoto();
   if (image instanceof HTMLImageElement) {
-    imageOperation(image, highFreq, file, image.width, core);
+    imageOperation(image, highFreq, file, image.width, image.height, core);
   }
 };
 
 const highFreq = (
   pixels: Uint8ClampedArray<ArrayBufferLike>,
-  ...rest: [width: number, core: 'H1' | 'H2' | 'H3']
+  ...rest: [width: number, height: number, core: 'H1' | 'H2' | 'H3']
 ) => {
-  const width = rest[0];
-  const core = rest[1];
+  const [width, height, core] = rest;
+  const w = width * 4,
+    len = w * height;
+
+  const pixelsCopy = [...pixels];
 
   switch (core) {
     case 'H1': {
-      const step = width * 4;
-      const lastLine = pixels.length - step - 4;
-      for (let i = step + 4; i < lastLine; i += step) {
-        for (let j = 0; j < step; ++j) {
-          const upperLine =
-            -1 * pixels[i + j - step - 4] +
-            -1 * pixels[i + j - step] +
-            -1 * pixels[i + j - step + 4];
-
-          const middleLine =
-            -1 * pixels[i + j - 4] + 9 * pixels[i + j] + -1 * pixels[i + j + 4];
-
-          const lowerLine =
-            -1 * pixels[i + j + step - 4] +
-            -1 * pixels[i + j + step] +
-            -1 * pixels[i + j + step + 4];
-
-          pixels[i + j] = clamp(upperLine + middleLine + lowerLine);
+      for (let line = width * 4; line < len - w; ++line) {
+        for (let px = 4; px < w - 4; px += 4) {
+          pixels[line + px] += pixelSum3(pixelsCopy, w, line + px, H1_highFreq);
         }
       }
     }
-    case 'H2': {
-      const step = width * 4;
-      const lastLine = pixels.length - step - 4;
-      for (let i = step + 4; i < lastLine; i += step) {
-        for (let j = 0; j < step; ++j) {
-          const upperLine =
-            0 * pixels[i + j - step - 4] +
-            -1 * pixels[i + j - step] +
-            0 * pixels[i + j - step + 4];
-
-          const middleLine =
-            -1 * pixels[i + j - 4] + 5 * pixels[i + j] + -1 * pixels[i + j + 4];
-
-          const lowerLine =
-            0 * pixels[i + j + step - 4] +
-            -1 * pixels[i + j + step] +
-            0 * pixels[i + j + step + 4];
-
-          pixels[i + j] = clamp(upperLine + middleLine + lowerLine);
-        }
-      }
-    }
-    case 'H3': {
-      const step = width * 4;
-      const lastLine = pixels.length - step - 4;
-      for (let i = step + 4; i < lastLine; i += step) {
-        for (let j = 0; j < step; ++j) {
-          const upperLine =
-            1 * pixels[i + j - step - 4] +
-            -2 * pixels[i + j - step] +
-            1 * pixels[i + j - step + 4];
-
-          const middleLine =
-            -2 * pixels[i + j - 4] + 5 * pixels[i + j] + -2 * pixels[i + j + 4];
-
-          const lowerLine =
-            1 * pixels[i + j + step - 4] +
-            -2 * pixels[i + j + step] +
-            1 * pixels[i + j + step + 4];
-
-          pixels[i + j] = clamp(upperLine + middleLine + lowerLine);
-        }
-      }
-    }
+    // case 'H2': {
+    //   processMatrix({
+    //     width,
+    //     height,
+    //     pixels,
+    //     coefficients: H2_highFreq
+    //   });
+    // }
+    // case 'H3': {
+    //   processMatrix({
+    //     width,
+    //     height,
+    //     pixels,
+    //     coefficients: H3_highFreq
+    //   });
+    // }
   }
 };
 
@@ -236,18 +166,18 @@ const medianFilter = (
 
   const _pixels = [...pixels];
 
-  for (let i = startStep; i < lastLine; i += step) {
-    for (let j = offsetValue; j < step - offsetValue; ++j) {
+  for (let line = startStep; line < lastLine; line += step) {
+    for (let px = offsetValue; px < step - offsetValue; ++px) {
       const arr: number[] = [];
 
       for (let sign = -1; sign <= 1; ++sign) {
         for (let offset = -offsetValue; offset <= offsetValue; offset += 4) {
-          arr.push(_pixels[i + j + sign * step + offset]);
+          arr.push(_pixels[line + px + sign * step + offset]);
         }
       }
 
       arr.sort();
-      pixels[i + j] = arr[Math.floor(arr.length / 2)];
+      pixels[line + px] = arr[Math.floor(arr.length / 2)];
     }
   }
 };
