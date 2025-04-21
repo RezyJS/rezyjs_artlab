@@ -8,7 +8,8 @@ import {
   H1_highFreq,
   H2_highFreq,
   H3_highFreq,
-  pixelSum3
+  pixelSum3,
+  pixelMedian
 } from './Matrixes';
 
 export const makeLowFreq = (core: 'H1' | 'H2' | 'H3', file: FileElement) => {
@@ -101,59 +102,38 @@ export const makeMedianFilter = (windowWidth: number, file: FileElement) => {
 
   const image = file.getCurrentPhoto();
   if (image instanceof HTMLImageElement) {
-    imageOperation(image, medianFilter, file, image.width, windowWidth);
+    imageOperation(
+      image,
+      medianFilter,
+      file,
+      image.width,
+      image.height,
+      windowWidth
+    );
   }
 };
 
 const medianFilter = (
   pixels: Uint8ClampedArray<ArrayBufferLike>,
-  ...rest: [width: number, windowSize: number]
+  ...rest: [width: number, height: number, windowSize: number]
 ) => {
-  const width = rest[0];
-  const windowSize = rest[1];
+  const [width, height, windowSize] = rest;
 
-  const step = width * 4;
-  let startStep = step;
-  let lastLine = pixels.length - step;
-  let offsetValue = 0;
+  const w = width * 4,
+    len = w * height;
 
-  switch (windowSize) {
-    case 3:
-      lastLine -= 4;
-      startStep += 4;
-      offsetValue = 4;
-      break;
-    case 5:
-      lastLine -= 4 * 2;
-      startStep += 4 * 2;
-      offsetValue = 8;
-      break;
-    case 7:
-      lastLine -= 4 * 3;
-      startStep += 4 * 3;
-      offsetValue = 12;
-      break;
-    case 9:
-      lastLine -= 4 * 4;
-      startStep += 4 * 4;
-      offsetValue = 16;
-      break;
-  }
+  const pixelsCopy = [...pixels];
 
-  const _pixels = [...pixels];
-
-  for (let line = startStep; line < lastLine; line += step) {
-    for (let px = offsetValue; px < step - offsetValue; ++px) {
-      const arr: number[] = [];
-
-      for (let sign = -1; sign <= 1; ++sign) {
-        for (let offset = -offsetValue; offset <= offsetValue; offset += 4) {
-          arr.push(_pixels[line + px + sign * step + offset]);
-        }
+  for (let line = 0; line < len; line += w) {
+    for (let px = 0; px < w; px += 4) {
+      for (let i = 0; i < 3; ++i) {
+        pixels[line + px + i] = pixelMedian(
+          pixelsCopy,
+          w,
+          line + px + i,
+          windowSize
+        );
       }
-
-      arr.sort();
-      pixels[line + px] = arr[Math.floor(arr.length / 2)];
     }
   }
 };
