@@ -15,10 +15,10 @@ export const MedianFilter = ({ file }: { file: FileElement }) => {
   return (
     <div>
       <MyButtonWithPopover text={"Median filter"}>
+        <MedianButton num={1} file={file} />
+        <MedianButton num={2} file={file} />
         <MedianButton num={3} file={file} />
-        <MedianButton num={5} file={file} />
-        <MedianButton num={7} file={file} />
-        <MedianButton num={9} file={file} />
+        <MedianButton num={4} file={file} />
       </MyButtonWithPopover>
     </div>
   );
