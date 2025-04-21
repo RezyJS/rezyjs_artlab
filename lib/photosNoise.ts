@@ -40,9 +40,12 @@ const lowFreq = (
   for (let line = w + 4; line < len - w; line += w) {
     for (let px = 4; px < w - 4; px += 4) {
       for (let i = 0; i < 3; ++i) {
-        pixels[line + px + i] =
-          pixelsCopy[line + px + i] -
-          pixelSum3(pixelsCopy, w, line + px + i, cores[core]);
+        pixels[line + px + i] = pixelSum3(
+          pixelsCopy,
+          w,
+          line + px + i,
+          cores[core]
+        );
       }
     }
   }
