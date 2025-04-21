@@ -43,18 +43,19 @@ export function pixelSum3(
   id: number,
   matrix: number[]
 ) {
-  let result = pixels[id] * matrix[4];
+  let result = 0;
+  let cnt = 0;
 
-  result += pixels[id - width - 4] * matrix[0];
-  result += pixels[id - width - 0] * matrix[1];
-  result += pixels[id - width + 4] * matrix[2];
-
-  result += pixels[id - 4] * matrix[3];
-  result += pixels[id + 4] * matrix[5];
-
-  result += pixels[id + width - 4] * matrix[6];
-  result += pixels[id + width - 0] * matrix[7];
-  result += pixels[id + width + 4] * matrix[8];
+  for (let k = -width; k <= width; k += width) {
+    for (let i = -4; i <= 4; i += 4) {
+      const sum = pixels[id + k + i];
+      if (sum === undefined) {
+        result += pixels[id] * matrix[cnt++];
+      } else {
+        result += sum * matrix[cnt++];
+      }
+    }
+  }
 
   return Math.max(0, Math.min(255, result));
 }
