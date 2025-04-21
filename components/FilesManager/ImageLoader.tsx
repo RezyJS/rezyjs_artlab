@@ -26,13 +26,15 @@ export default function ImageLoader({ file }: { file: FileElement, picture: stri
     e.stopPropagation();
   };
 
-  const handleDrop = (e: React.DragEvent) => {
+  const handleDrop = async (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(false);
 
     const droppedFiles = e.dataTransfer.files;
+
     if (droppedFiles.length > 0) {
+      // Обработка файлов из файловой системы
       const myFile = droppedFiles[0];
       if (!myFile.type.startsWith('image')) {
         toast.error('Wrong format', {
@@ -41,6 +43,34 @@ export default function ImageLoader({ file }: { file: FileElement, picture: stri
         return;
       }
       loadNewPhoto(myFile, file);
+    } else {
+      // Обработка URL изображения из браузера
+      const url = e.dataTransfer.getData('URL') || e.dataTransfer.getData('text/uri-list');
+      if (url) {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) throw new Error('Network response was not ok');
+          const blob = await response.blob();
+          if (!blob.type.startsWith('image')) {
+            toast.error('Wrong format', {
+              description: 'The URL does not point to an image',
+            });
+            return;
+          }
+          const filename = url.split('/').pop() || 'image.jpg';
+          const myFile = new File([blob], filename, { type: blob.type });
+          loadNewPhoto(myFile, file);
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (error) {
+          toast.error('Error loading image', {
+            description: 'Failed to load image from URL',
+          });
+        }
+      } else {
+        toast.error('No data', {
+          description: 'No image was provided',
+        });
+      }
     }
   };
 
@@ -50,8 +80,7 @@ export default function ImageLoader({ file }: { file: FileElement, picture: stri
       onDragLeave={handleDragLeave}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
-      className={`h-full flex flex-col justify-center items-center gap-1 cursor-pointer w-full object-contain ${isDragging ? 'border-2 border-dashed border-blue-500 bg-blue-100' : ''
-        } ${file.isEmpty() ? 'p-10' : 'p-4'}`}
+      className={`h-full flex flex-col justify-center items-center gap-1 cursor-pointer w-full object-contain ${isDragging ? 'border-2 border-dashed border-blue-500 bg-blue-100' : ''} ${file.isEmpty() ? 'p-10' : 'p-4'}`}
     >
       {file.isEmpty() && (
         <div className="flex flex-col text-center font-semibold text-lg">
