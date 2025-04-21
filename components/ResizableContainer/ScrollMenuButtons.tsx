@@ -7,6 +7,8 @@ import {
   ScrollBar
 } from "../ui/scroll-area";
 import NoiseButtons from "../PhotoChangersButtons/NoiseButtons";
+import { useHotkeys } from "react-hotkeys-hook";
+import { useCallback } from "react";
 
 const DefaultButton = ({ setFunctions, component, text }: { setFunctions: Function, component: React.ReactNode, text: string }) => {
   return (
@@ -20,19 +22,33 @@ const DefaultButton = ({ setFunctions, component, text }: { setFunctions: Functi
 }
 
 export const ButtonsList = ({ file, setFunctions }: { file: FileElement, setFunctions: Function }) => {
+
+  const handleButton = useCallback((component: React.ReactNode) => {
+    setFunctions(component)
+  }, [setFunctions])
+
+  useHotkeys('ctrl+1', () => handleButton(<ColorButtons file={file} />), [handleButton]);
+  useHotkeys('ctrl+2', () => handleButton(<NoiseButtons file={file} />), [handleButton]);
+
   return (
     <ScrollArea>
       <div className="flex gap-5">
-        <DefaultButton
-          setFunctions={setFunctions}
-          component={<ColorButtons file={file} />}
-          text='Colors'
-        />
-        <DefaultButton
-          setFunctions={setFunctions}
-          component={<NoiseButtons file={file} />}
-          text='Noises'
-        />
+        <div className="flex flex-col justify-center items-center gap-2">
+          Ctrl+1
+          <DefaultButton
+            setFunctions={setFunctions}
+            component={<ColorButtons file={file} />}
+            text='Colors'
+          />
+        </div>
+        <div className="flex flex-col justify-center items-center gap-2">
+          Ctrl+2
+          <DefaultButton
+            setFunctions={setFunctions}
+            component={<NoiseButtons file={file} />}
+            text='Noises'
+          />
+        </div>
         <ScrollBar orientation="horizontal" />
       </div>
     </ScrollArea>
