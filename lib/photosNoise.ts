@@ -2,14 +2,12 @@ import { toast } from 'sonner';
 import FileElement from './structures';
 import { imageOperation } from './photosMain';
 import {
-  H1_highFreq,
   H1_lowFreq,
-  // H1_lowFreq,
-  // H2_lowFreq,
-  // H3_lowFreq,
-  // H1_highFreq,
-  // H2_highFreq,
-  // H3_highFreq,
+  H2_lowFreq,
+  H3_lowFreq,
+  H1_highFreq,
+  H2_highFreq,
+  H3_highFreq,
   pixelSum3
 } from './Matrixes';
 
@@ -37,34 +35,23 @@ const lowFreq = (
 
   const pixelsCopy = [...pixels];
 
-  switch (core) {
-    case 'H1': {
-      for (let line = width * 4; line < len - w; ++line) {
-        for (let px = 4; px < w - 4; px += 4) {
-          pixels[line + px] = pixelSum3(pixelsCopy, w, line + px, H1_lowFreq);
-        }
+  const cores = { H1: H1_lowFreq, H2: H2_lowFreq, H3: H3_lowFreq };
+
+  for (let line = w + 4; line < len - w; line += w) {
+    for (let px = 4; px < w - 4; px += 4) {
+      for (let i = 0; i < 3; ++i) {
+        pixels[line + px + i] =
+          pixelsCopy[line + px + i] -
+          pixelSum3(pixelsCopy, w, line + px + i, cores[core]);
       }
     }
-    //     case 'H2': {
-    //       processMatrix({
-    //         width,
-    //         height,
-    //         pixels,
-    //         coefficients: H2_lowFreq
-    //       });
-    //     }
-    //     case 'H3': {
-    //       processMatrix({
-    //         width,
-    //         height,
-    //         pixels,
-    //         coefficients: H3_lowFreq
-    //       });
-    //     }
   }
 };
 
-export const makeHighFreq = (core: 'H1' | 'H2' | 'H3', file: FileElement) => {
+export const makeHighFreq = async (
+  core: 'H1' | 'H2' | 'H3',
+  file: FileElement
+) => {
   if (file.isEmpty()) {
     toast.error('Error occurred!', {
       description: 'Load a photo to continue!'
@@ -88,30 +75,16 @@ const highFreq = (
 
   const pixelsCopy = [...pixels];
 
-  switch (core) {
-    case 'H1': {
-      for (let line = width * 4; line < len - w; ++line) {
-        for (let px = 4; px < w - 4; px += 4) {
-          pixels[line + px] += pixelSum3(pixelsCopy, w, line + px, H1_highFreq);
-        }
+  const cores = { H1: H1_highFreq, H2: H2_highFreq, H3: H3_highFreq };
+
+  for (let line = w + 4; line < len - w; line += w) {
+    for (let px = 4; px < w - 4; px += 4) {
+      for (let i = 0; i < 3; ++i) {
+        pixels[line + px + i] =
+          pixelsCopy[line + px + i] -
+          pixelSum3(pixelsCopy, w, line + px + i, cores[core]);
       }
     }
-    // case 'H2': {
-    //   processMatrix({
-    //     width,
-    //     height,
-    //     pixels,
-    //     coefficients: H2_highFreq
-    //   });
-    // }
-    // case 'H3': {
-    //   processMatrix({
-    //     width,
-    //     height,
-    //     pixels,
-    //     coefficients: H3_highFreq
-    //   });
-    // }
   }
 };
 

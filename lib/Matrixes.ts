@@ -43,23 +43,19 @@ export function pixelSum3(
   id: number,
   matrix: number[]
 ) {
-  let result = pixels[id];
+  let result = pixels[id] * matrix[4];
 
   result += pixels[id - width - 4] * matrix[0];
   result += pixels[id - width - 0] * matrix[1];
   result += pixels[id - width + 4] * matrix[2];
 
   result += pixels[id - 4] * matrix[3];
-  result += pixels[id - 0] * matrix[4];
   result += pixels[id + 4] * matrix[5];
 
   result += pixels[id + width - 4] * matrix[6];
   result += pixels[id + width - 0] * matrix[7];
   result += pixels[id + width + 4] * matrix[8];
 
-  if (id < 100) {
-    console.info(`id: ${id} res: ${result}`);
-  }
   return Math.max(0, Math.min(255, result));
 }
 
