@@ -3,7 +3,9 @@ import {
   ResizablePanel,
   ResizableHandle
 } from '@/components/ui/resizable';
-import ImageLoader from '@/components/FilesManager/ImageLoader';
+import dynamic from 'next/dynamic';
+
+const ImageLoader = dynamic(() => import('@/components/FilesManager/ImageLoader'), { ssr: false });
 import {
   Horizontal,
   Vertical
