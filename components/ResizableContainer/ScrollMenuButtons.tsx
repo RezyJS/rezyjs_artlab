@@ -9,6 +9,7 @@ import {
 import NoiseButtons from "../PhotoChangersButtons/NoiseButtons";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useCallback } from "react";
+import EdgesButtons from "../PhotoChangersButtons/EdgesButtons";
 
 const DefaultButton = ({ setFunctions, component, text }: { setFunctions: Function, component: React.ReactNode, text: string }) => {
   return (
@@ -29,6 +30,7 @@ export const ButtonsList = ({ file, setFunctions }: { file: FileElement, setFunc
 
   useHotkeys('ctrl+1', () => handleButton(<ColorButtons file={file} />), [handleButton]);
   useHotkeys('ctrl+2', () => handleButton(<NoiseButtons file={file} />), [handleButton]);
+  useHotkeys('ctrl+3', () => handleButton(<EdgesButtons file={file} />), [handleButton]);
 
   return (
     <ScrollArea>
@@ -47,6 +49,14 @@ export const ButtonsList = ({ file, setFunctions }: { file: FileElement, setFunc
             setFunctions={setFunctions}
             component={<NoiseButtons file={file} />}
             text='Noises'
+          />
+        </div>
+        <div className="flex flex-col justify-center items-center gap-2">
+          Ctrl+3
+          <DefaultButton
+            setFunctions={setFunctions}
+            component={<EdgesButtons file={file} />}
+            text='Edges'
           />
         </div>
         <ScrollBar orientation="horizontal" />

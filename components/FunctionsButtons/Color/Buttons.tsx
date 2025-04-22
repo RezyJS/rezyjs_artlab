@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/popover'
 import FileElement from "@/lib/structures";
 
-export const MyDefaultButton = ({ text, callback, children }: { text: string, callback: Function, children?: React.ReactNode }) => (
+export const MyDefaultButton = ({ text, callback, children }: { text?: string, callback: Function, children?: React.ReactNode }) => (
   <Button
     className="flex justify-center items-center font-semibold"
     onClick={() => callback()}
@@ -18,7 +18,7 @@ export const MyDefaultButton = ({ text, callback, children }: { text: string, ca
 );
 
 export const MyButtonWithPopover = (
-  { text, children }: { text: string, children: React.ReactNode }
+  { text, children }: { text?: string, children?: React.ReactNode }
 ) => {
   return (
     <Popover>

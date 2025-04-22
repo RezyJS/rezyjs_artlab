@@ -67,3 +67,29 @@ export const H1_highFreq = [-1, -1, -1, -1, 9, -1, -1, -1, -1];
 export const H2_highFreq = [0, -1, 0, -1, 5, -1, 0, -1, 0];
 
 export const H3_highFreq = [1, -2, 1, -2, 5, -2, 1, -2, 1];
+
+export const Edge_Empower = [0, 1, 0, 1, -4, 1, 0, 1, 0];
+
+export const Shift_Vertical = [0, -1, 0, 0, 1, 0, 0, 0, 0];
+
+export const Shift_Horizontal = [0, 0, 0, -1, 1, 0, 0, 0, 0];
+
+export const Shift_Diagonal = [-1, 0, 0, 0, 1, 0, 0, 0, 0];
+
+export const Sobel_1 = [-1, 0, 1, -2, 0, 2, -1, 0, 1];
+export const Sobel_2 = [1, 2, 1, 0, 0, 0, -1, -2, -1];
+
+export const Pravit_1 = [1, 0, -1, 1, 0, -1, 1, 0, -1];
+export const Pravit_2 = [-1, -1, -1, 0, 0, 0, 1, 1, 1];
+
+export const Embossing_Out = [0, 1, 0, -1, 0, 1, 0, -1, 0];
+export const Embossing_In = [0, -1, 0, 1, 0, -1, 0, 1, 0];
+
+export const Kirsch_1 = [5, 5, 5, -3, 0, -3, -3, -3, -3];
+export const Kirsch_2 = [-3, 5, 5, -3, 0, 5, -3, -3, -3];
+export const Kirsch_3 = [-3, -3, 5, -3, 0, 5, -3, -3, 5];
+export const Kirsch_4 = [-3, -3, -3, -3, 0, 5, -3, 5, 5];
+export const Kirsch_5 = [5, 5, -3, 5, 0, -3, -3, -3, -3];
+export const Kirsch_6 = [5, -3, -3, 5, 0, -3, 5, -3, -3];
+export const Kirsch_7 = [-3, -3, -3, 5, 0, -3, 5, 5, -3];
+export const Kirsch_8 = [-3, -3, -3, -3, 0, -3, 5, 5, 5];
