@@ -46,13 +46,13 @@ export const Vertical = ({ file }: { file: FileElement }) => {
     <>
       <ResizablePanel minSize={10} maxSize={10}>
         <div className="flex gap-5 justify-center items-center h-full w-full">
-          <ControlPhoto file={file} />
+          <ControlPhoto file={file} className='hidden' />
         </div>
       </ResizablePanel>
       <div className="w-full h-[0.5px] bg-white"></div>
       <ResizablePanel minSize={10} maxSize={10}>
         <div className="flex gap-5 justify-center items-center h-full w-full">
-          <ButtonsList file={file} setFunctions={setFunctions} />
+          <ButtonsList file={file} setFunctions={setFunctions} className='hidden' />
         </div>
       </ResizablePanel>
       <ResizableHandle withHandle />

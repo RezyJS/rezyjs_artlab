@@ -2,7 +2,7 @@ import FileElement from "@/lib/structures";
 import { Button } from "../ui/button";
 import { ArrowLeftCircle, ArrowRightCircle, RotateCcw, Trash2 } from "lucide-react";
 
-export const ControlPhoto = ({ file }: { file: FileElement }) => {
+export const ControlPhoto = ({ file, className }: { file: FileElement, className?: string }) => {
   return (
     <div className="flex justify-evenly items-center gap-3">
       <div className="flex flex-col text-center w-full">
@@ -15,7 +15,7 @@ export const ControlPhoto = ({ file }: { file: FileElement }) => {
           className="flex flex-col h-full w-full justify-center items-center"
         >
           <ArrowLeftCircle />
-          {}Ctrl+Z
+          <p className={className}>Ctrl+Z</p>
         </Button>
       </div>
       <div className="flex flex-col text-center w-full">
@@ -27,7 +27,7 @@ export const ControlPhoto = ({ file }: { file: FileElement }) => {
           className="flex flex-col h-full w-full justify-center items-center"
         >
           <ArrowRightCircle />
-          Ctrl+Y
+          <p className={className}>Ctrl+Y</p>
         </Button>
       </div>
       <div className="flex flex-col text-center w-full">
@@ -39,7 +39,7 @@ export const ControlPhoto = ({ file }: { file: FileElement }) => {
           className="flex flex-col h-full w-full justify-center items-center"
         >
           <RotateCcw />
-          Ctrl+X
+          <p className={className}>Ctrl+X</p>
         </Button>
       </div>
       <div className="flex flex-col text-center w-full">
@@ -51,7 +51,7 @@ export const ControlPhoto = ({ file }: { file: FileElement }) => {
           className="flex flex-col h-full w-full justify-center items-center"
         >
           <Trash2 />
-          Ctrl+M
+          <p className={className}>Ctrl+M</p>
         </Button>
       </div>
     </div>

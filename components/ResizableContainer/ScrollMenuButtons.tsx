@@ -22,7 +22,7 @@ const DefaultButton = ({ setFunctions, component, text }: { setFunctions: Functi
   );
 }
 
-export const ButtonsList = ({ file, setFunctions }: { file: FileElement, setFunctions: Function }) => {
+export const ButtonsList = ({ file, setFunctions, className }: { file: FileElement, setFunctions: Function, className?: string }) => {
 
   const handleButton = useCallback((component: React.ReactNode) => {
     setFunctions(component)
@@ -36,7 +36,7 @@ export const ButtonsList = ({ file, setFunctions }: { file: FileElement, setFunc
     <ScrollArea>
       <div className="flex gap-5">
         <div className="flex flex-col justify-center items-center gap-2">
-          Ctrl+1
+          <p className={className}>Ctrl+1</p>
           <DefaultButton
             setFunctions={setFunctions}
             component={<ColorButtons file={file} />}
@@ -44,7 +44,7 @@ export const ButtonsList = ({ file, setFunctions }: { file: FileElement, setFunc
           />
         </div>
         <div className="flex flex-col justify-center items-center gap-2">
-          Ctrl+2
+          <p className={className}>Ctrl+2</p>
           <DefaultButton
             setFunctions={setFunctions}
             component={<NoiseButtons file={file} />}
@@ -52,7 +52,7 @@ export const ButtonsList = ({ file, setFunctions }: { file: FileElement, setFunc
           />
         </div>
         <div className="flex flex-col justify-center items-center gap-2">
-          Ctrl+3
+          <p className={className}>Ctrl+3</p>
           <DefaultButton
             setFunctions={setFunctions}
             component={<EdgesButtons file={file} />}

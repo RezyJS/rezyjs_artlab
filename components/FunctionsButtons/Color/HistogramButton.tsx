@@ -8,7 +8,7 @@ export const HistogramButton = ({ file }: defaultButtonNeeds) => (
   <Dialog>
     <DialogTrigger asChild>
       <Button
-        className="flex justify-center items-center font-semibold"
+        className="flex justify-center items-center font-semibold min-w-max"
       >
         <p>Histogram</p>
         <ChartColumnBig />
