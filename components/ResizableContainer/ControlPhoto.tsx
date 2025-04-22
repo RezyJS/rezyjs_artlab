@@ -15,7 +15,7 @@ export const ControlPhoto = ({ file }: { file: FileElement }) => {
           className="flex flex-col h-full w-full justify-center items-center"
         >
           <ArrowLeftCircle />
-          Ctrl+Z
+          {}Ctrl+Z
         </Button>
       </div>
       <div className="flex flex-col text-center w-full">
