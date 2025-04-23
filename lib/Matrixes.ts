@@ -18,7 +18,7 @@ export function pixelSum3(
     }
   }
 
-  return Math.max(0, Math.min(255, result));
+  return result;
 }
 
 export function pixelMedian(

@@ -22,6 +22,7 @@ import {
   Sobel_1,
   Sobel_2
 } from './Matrixes';
+import { clamp } from './photosColor';
 
 export const makeEdgeEmpower = (file: FileElement) => {
   if (file.isEmpty()) {
@@ -49,11 +50,10 @@ const edgeEmpower = (
 
   for (let line = 0; line < len; line += w) {
     for (let px = 0; px < w; px += 4) {
-      for (let i = 0; i < 3; ++i) {
-        pixels[line + px + i] = Math.abs(
-          pixelSum3(pixelsCopy, w, line + px + i, Edge_Empower)
-        );
-      }
+      const c = pixelSum3(pixelsCopy, w, line + px, Edge_Empower);
+      pixels[line + px + 0] = clamp(Math.abs(c));
+      pixels[line + px + 1] = clamp(Math.abs(c));
+      pixels[line + px + 2] = clamp(Math.abs(c));
     }
   }
 };
@@ -97,12 +97,12 @@ const edgeByShift = (
 
   for (let line = 0; line < len; line += w) {
     for (let px = 0; px < w; px += 4) {
-      for (let i = 0; i < 3; ++i) {
-        pixels[line + px + i] = Math.abs(
-          pixels[line + px + i] -
-            pixelSum3(pixelsCopy, w, line + px + i, shifts[shift])
-        );
-      }
+      const edge = pixelSum3(pixelsCopy, w, line + px, shifts[shift]);
+      const c = pixels[line + px] - edge;
+
+      pixels[line + px + 0] = clamp(Math.abs(c));
+      pixels[line + px + 1] = clamp(Math.abs(c));
+      pixels[line + px + 2] = clamp(Math.abs(c));
     }
   }
 };
@@ -133,22 +133,19 @@ const cross = (
 
   for (let line = 0; line < len; line += w) {
     for (let px = 0; px < w; px += 4) {
-      for (let i = 0; i < 3; ++i) {
-        const sum1 = Math.pow(
-          pixelsCopy[line + px + i] - pixelsCopy[line + w + px + 4 + i],
-          2
-        );
+      const sum1 = Math.pow(
+        pixelsCopy[line + px] - pixelsCopy[line + w + px + 4],
+        2
+      );
 
-        const sum2 = Math.pow(
-          pixelsCopy[line + px + 4 + i] - pixelsCopy[line + w + px + i],
-          2
-        );
+      const sum2 = Math.pow(
+        pixelsCopy[line + px + 4] - pixelsCopy[line + w + px],
+        2
+      );
 
-        pixels[line + px + i] = Math.max(
-          0,
-          Math.min(255, Math.sqrt(sum1 + sum2))
-        );
-      }
+      pixels[line + px + 0] = clamp(Math.sqrt(sum1 + sum2));
+      pixels[line + px + 1] = clamp(Math.sqrt(sum1 + sum2));
+      pixels[line + px + 2] = clamp(Math.sqrt(sum1 + sum2));
     }
   }
 };
@@ -179,12 +176,14 @@ const sobel = (
 
   for (let line = 0; line < len; line += w) {
     for (let px = 0; px < w; px += 4) {
-      for (let i = 0; i < 3; ++i) {
-        pixels[line + px + i] = Math.sqrt(
-          Math.pow(pixelSum3(pixelsCopy, w, line + px + i, Sobel_1), 2) +
-            Math.pow(pixelSum3(pixelsCopy, w, line + px + i, Sobel_2), 2)
-        );
-      }
+      const c1 = pixelSum3(pixelsCopy, w, line + px, Sobel_1);
+      const c2 = pixelSum3(pixelsCopy, w, line + px, Sobel_2);
+
+      const res = clamp(Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2)));
+
+      pixels[line + px + 0] = res;
+      pixels[line + px + 1] = res;
+      pixels[line + px + 2] = res;
     }
   }
 };
@@ -215,12 +214,12 @@ const pravit = (
 
   for (let line = 0; line < len; line += w) {
     for (let px = 0; px < w; px += 4) {
-      for (let i = 0; i < 3; ++i) {
-        pixels[line + px + i] = Math.max(
-          pixelSum3(pixelsCopy, w, line + px + i, Pravit_1),
-          pixelSum3(pixelsCopy, w, line + px + i, Pravit_2)
-        );
-      }
+      const c1 = pixelSum3(pixelsCopy, w, line + px, Pravit_1);
+      const c2 = pixelSum3(pixelsCopy, w, line + px, Pravit_2);
+
+      pixels[line + px + 0] = Math.max(c1, c2);
+      pixels[line + px + 1] = Math.max(c1, c2);
+      pixels[line + px + 2] = Math.max(c1, c2);
     }
   }
 };
@@ -256,15 +255,13 @@ const embossing = (
 
   for (let line = 0; line < len; line += w) {
     for (let px = 0; px < w; px += 4) {
-      for (let i = 0; i < 3; ++i) {
-        pixels[line + px + i] = Math.max(
-          0,
-          Math.min(
-            255,
-            pixelSum3(pixelsCopy, w, line + px + i, embossingMatrix[type]) + 128
-          )
-        );
-      }
+      const c = clamp(
+        pixelSum3(pixelsCopy, w, line + px, embossingMatrix[type]) + 128
+      );
+
+      pixels[line + px + 0] = c;
+      pixels[line + px + 1] = c;
+      pixels[line + px + 2] = c;
     }
   }
 };
@@ -296,16 +293,20 @@ const kirsch = (
   for (let line = 0; line < len; line += w) {
     for (let px = 0; px < w; px += 4) {
       for (let i = 0; i < 3; ++i) {
-        pixels[line + px + i] = Math.max(
-          Math.abs(pixelSum3(pixelsCopy, w, line + px + i, Kirsch_1)),
-          Math.abs(pixelSum3(pixelsCopy, w, line + px + i, Kirsch_2)),
-          Math.abs(pixelSum3(pixelsCopy, w, line + px + i, Kirsch_3)),
-          Math.abs(pixelSum3(pixelsCopy, w, line + px + i, Kirsch_4)),
-          Math.abs(pixelSum3(pixelsCopy, w, line + px + i, Kirsch_5)),
-          Math.abs(pixelSum3(pixelsCopy, w, line + px + i, Kirsch_6)),
-          Math.abs(pixelSum3(pixelsCopy, w, line + px + i, Kirsch_7)),
-          Math.abs(pixelSum3(pixelsCopy, w, line + px + i, Kirsch_8))
-        );
+        const c1 = pixelSum3(pixelsCopy, w, line + px, Kirsch_1);
+        const c2 = pixelSum3(pixelsCopy, w, line + px, Kirsch_2);
+        const c3 = pixelSum3(pixelsCopy, w, line + px, Kirsch_3);
+        const c4 = pixelSum3(pixelsCopy, w, line + px, Kirsch_4);
+        const c5 = pixelSum3(pixelsCopy, w, line + px, Kirsch_5);
+        const c6 = pixelSum3(pixelsCopy, w, line + px, Kirsch_6);
+        const c7 = pixelSum3(pixelsCopy, w, line + px, Kirsch_7);
+        const c8 = pixelSum3(pixelsCopy, w, line + px, Kirsch_8);
+
+        const c = clamp(Math.max(c1, c2, c3, c4, c5, c6, c7, c8));
+
+        pixels[line + px + 0] = c;
+        pixels[line + px + 1] = c;
+        pixels[line + px + 2] = c;
       }
     }
   }
