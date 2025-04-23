@@ -98,11 +98,11 @@ const edgeByShift = (
   for (let line = 0; line < len; line += w) {
     for (let px = 0; px < w; px += 4) {
       const edge = pixelSum3(pixelsCopy, w, line + px, shifts[shift]);
-      const c = pixels[line + px] - edge;
+      const c = clamp(Math.abs(edge));
 
-      pixels[line + px + 0] = clamp(Math.abs(c));
-      pixels[line + px + 1] = clamp(Math.abs(c));
-      pixels[line + px + 2] = clamp(Math.abs(c));
+      pixels[line + px + 0] = c;
+      pixels[line + px + 1] = c;
+      pixels[line + px + 2] = c;
     }
   }
 };

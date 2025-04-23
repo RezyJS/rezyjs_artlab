@@ -55,25 +55,19 @@ export const H1_lowFreq = [
   1 / 9,
   1 / 9
 ];
-
 export const H2_lowFreq = [0.1, 0.1, 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.1];
-
 export const H3_lowFreq = [
   0.0625, 0.125, 0.0625, 0.125, 0.25, 0.125, 0.0625, 0.125, 0.0625
 ];
 
 export const H1_highFreq = [-1, -1, -1, -1, 9, -1, -1, -1, -1];
-
 export const H2_highFreq = [0, -1, 0, -1, 5, -1, 0, -1, 0];
-
 export const H3_highFreq = [1, -2, 1, -2, 5, -2, 1, -2, 1];
 
 export const Edge_Empower = [0, 1, 0, 1, -4, 1, 0, 1, 0];
 
 export const Shift_Vertical = [0, -1, 0, 0, 1, 0, 0, 0, 0];
-
 export const Shift_Horizontal = [0, 0, 0, -1, 1, 0, 0, 0, 0];
-
 export const Shift_Diagonal = [-1, 0, 0, 0, 1, 0, 0, 0, 0];
 
 export const Sobel_1 = [-1, 0, 1, -2, 0, 2, -1, 0, 1];
