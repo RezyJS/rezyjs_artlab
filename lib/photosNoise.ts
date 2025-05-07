@@ -84,9 +84,12 @@ const highFreq = (
   for (let line = 0; line < len; line += w) {
     for (let px = 0; px < w; px += 4) {
       for (let i = 0; i < 3; ++i) {
-        pixels[line + px + i] =
-          pixelsCopy[line + px + i] -
-          pixelSum3(pixelsCopy, w, line + px + i, cores[core]);
+        pixels[line + px + i] = pixelSum3(
+          pixelsCopy,
+          w,
+          line + px + i,
+          cores[core]
+        );
       }
     }
   }

@@ -1,0 +1,9 @@
+services:
+  artlab:
+    container_name: artlab
+    build:
+      context: ../
+      dockerfile: deployment/Dockerfile
+    restart: unless-stopped
+    ports:
+      - 3000:3000
