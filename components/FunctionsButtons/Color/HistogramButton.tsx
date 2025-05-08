@@ -1,4 +1,3 @@
-import { ChartColumnBig } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../../ui/dialog";
 import { defaultButtonNeeds } from "./Buttons";
 import Histogram from "./HistogramComponent";
@@ -8,10 +7,9 @@ export const HistogramButton = ({ file }: defaultButtonNeeds) => (
   <Dialog>
     <DialogTrigger asChild>
       <Button
-        className="flex justify-center items-center font-semibold min-w-max"
+        className="flex justify-center items-center font-semibold w-[130px]"
       >
         <p>Histogram</p>
-        <ChartColumnBig />
       </Button>
     </DialogTrigger>
     <DialogContent className="min-w-[90vw] max-w-[90vw] h-[90vh] flex flex-col justify-center items-center">

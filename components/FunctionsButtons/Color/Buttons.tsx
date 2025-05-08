@@ -9,7 +9,7 @@ import FileElement from "@/lib/structures";
 
 export const MyDefaultButton = ({ text, callback, children }: { text?: string, callback: Function, children?: React.ReactNode }) => (
   <Button
-    className="flex justify-center items-center font-semibold min-w-max"
+    className="flex justify-center items-center font-semibold w-[130px]"
     onClick={() => callback()}
   >
     <p>{text}</p>
@@ -24,7 +24,7 @@ export const MyButtonWithPopover = (
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          className="font-semibold min-w-max"
+          className="font-semibold w-[130px]"
         >
           <p>{text}</p>
         </Button>
