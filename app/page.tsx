@@ -11,19 +11,27 @@ export default function App() {
   const [file,] = useState<FileElement>(new FileElement(setPicture));
 
   const handleUndo = useCallback(() => {
-    file.revert();
+    if (!(file.isEmpty() || file.isFirst())) {
+      file.revert();
+    }
   }, [file]);
 
   const handleRedo = useCallback(() => {
-    file.undoRevert();
+    if (!(file.isEmpty() || file.isLast())) {
+      file.undoRevert();
+    }
   }, [file])
 
   const handleReset = useCallback(() => {
-    file.reset();
+    if (!(file.isEmpty() || file.isFirst())) {
+      file.reset();
+    }
   }, [file])
 
   const handleDelete = useCallback(() => {
-    file.newStack();
+    if (!file.isEmpty()) {
+      file.newStack();
+    }
   }, [file])
 
   useHotkeys('ctrl+z', handleUndo, [handleUndo]);
