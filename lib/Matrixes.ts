@@ -25,12 +25,31 @@ export function pixelMedian(
   pixels: number[],
   width: number,
   id: number,
-  windowSize: number
+  windowHeight: number,
+  windowWidth: number
 ): number {
   const resultArray: number[] = [];
 
-  for (let k = -width * windowSize; k <= width * windowSize; k += width) {
-    for (let i = -4 * windowSize; i <= 4 * windowSize; i += 4) {
+  const endK = (() => {
+    switch (windowHeight % 2) {
+      case 0:
+        return width * windowHeight - width;
+      default:
+        return width * windowHeight;
+    }
+  })();
+
+  const endI = (() => {
+    switch (windowHeight % 2) {
+      case 0:
+        return 4 * windowWidth - 4;
+      default:
+        return 4 * windowWidth;
+    }
+  })();
+
+  for (let k = -width * windowHeight; k <= endK; k += width) {
+    for (let i = -4 * windowWidth; i <= endI; i += 4) {
       const px = pixels[id + k + i];
       if (px === undefined) {
         resultArray.push(pixels[id]);

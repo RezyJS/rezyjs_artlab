@@ -95,7 +95,7 @@ const highFreq = (
   }
 };
 
-export const makeMedianFilter = (windowWidth: number, file: FileElement) => {
+export const makeMedianFilter = (wh: number, ww: number, file: FileElement) => {
   if (file.isEmpty()) {
     toast.error('Error occurred!', {
       description: 'Load a photo to continue!'
@@ -111,16 +111,22 @@ export const makeMedianFilter = (windowWidth: number, file: FileElement) => {
       file,
       image.width,
       image.height,
-      windowWidth
+      wh,
+      ww
     );
   }
 };
 
 const medianFilter = (
   pixels: Uint8ClampedArray<ArrayBufferLike>,
-  ...rest: [width: number, height: number, windowSize: number]
+  ...rest: [
+    width: number,
+    height: number,
+    windowHeight: number,
+    windowWidth: number
+  ]
 ) => {
-  const [width, height, windowSize] = rest;
+  const [width, height, wh, ww] = rest;
 
   const w = width * 4,
     len = w * height;
@@ -134,7 +140,8 @@ const medianFilter = (
           pixelsCopy,
           w,
           line + px + i,
-          windowSize
+          wh,
+          ww
         );
       }
     }
