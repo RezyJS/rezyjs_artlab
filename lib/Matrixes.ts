@@ -40,7 +40,7 @@ export function pixelMedian(
   })();
 
   const endI = (() => {
-    switch (windowHeight % 2) {
+    switch (windowWidth % 2) {
       case 0:
         return 4 * windowWidth - 4;
       default:

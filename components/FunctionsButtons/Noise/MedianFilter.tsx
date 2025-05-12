@@ -15,11 +15,11 @@ const MedianButton = ({ file }: { file: FileElement }) => {
       <div className="flex gap-5">
         <div className="flex flex-col gap-3">
           <p>Width</p>
-          <Input type="number" value={w} onChange={(e) => { if (+e.currentTarget.value > 0) setW(+e.currentTarget.value); }} />
+          <Input type="number" value={w} onChange={(e) => { if (+e.currentTarget.value > 1) setW(+e.currentTarget.value); }} />
         </div>
         <div className="flex flex-col gap-3">
           <p>Height</p>
-          <Input type="number" value={h} onChange={(e) => { if (+e.currentTarget.value > 0) setH(+e.currentTarget.value); }} />
+          <Input type="number" value={h} onChange={(e) => { if (+e.currentTarget.value > 1) setH(+e.currentTarget.value); }} />
         </div>
       </div>
       <Button
