@@ -1,23 +1,10 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is NextJS project that allows you to edit your photo
+You can make some color changes, blur photo or make it sharper
+So this is basically a plot for making online Photoshop :)
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+To start using it ~~go to my website~~ (not deployed any more) or clone and then:
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## Learn More
-
-This is a project that helps you to change your images.
-Such things as gaussian effect, grayscaling, negative effect etc.
-This is my University project.
+pnpm install
+# pnpm start
+pnpm dev
+```
