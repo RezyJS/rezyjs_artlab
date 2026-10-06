@@ -1,0 +1,74 @@
+'use client';
+
+import { forwardRef, useMemo, useState } from 'react';
+import { HexColorPicker } from 'react-colorful';
+import { cn } from '@/shared/lib/utils';
+import { useForwardedRef } from '@/shared/lib/use-forwarded-ref';
+import type { ButtonProps } from '@/shared/ui/button';
+import { Button } from '@/shared/ui/button';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/shared/ui/popover';
+import { Input } from '@/shared/ui/input';
+
+interface ColorPickerProps {
+  value: string;
+  onChange: (value: string) => void;
+  onBlur?: () => void;
+}
+
+const ColorPicker = forwardRef<
+  HTMLInputElement,
+  Omit<ButtonProps, 'value' | 'onChange' | 'onBlur'> & ColorPickerProps
+>(
+  (
+    { disabled, value, onChange, onBlur, name, className, ...props },
+    forwardedRef
+  ) => {
+    const ref = useForwardedRef(forwardedRef);
+    const [open, setOpen] = useState(false);
+
+    const parsedValue = useMemo(() => {
+      return value || '#FFFFFF';
+    }, [value]);
+
+    return (
+      <Popover onOpenChange={setOpen} open={open}>
+        <PopoverTrigger asChild disabled={disabled} onBlur={onBlur}>
+          <Button
+            {...props}
+            className={cn('block', className)}
+            name={name}
+            onClick={() => {
+              setOpen(true);
+            }}
+            size='icon'
+            style={{
+              backgroundColor: parsedValue,
+            }}
+            variant='outline'
+          >
+            <div />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className='w-full flex flex-col gap-5'>
+          <HexColorPicker color={parsedValue} onChange={onChange} />
+          <Input
+            maxLength={7}
+            onChange={(e) => {
+              onChange(e?.currentTarget?.value);
+            }}
+            ref={ref}
+            value={parsedValue}
+            className='text-white'
+          />
+        </PopoverContent>
+      </Popover>
+    );
+  }
+);
+ColorPicker.displayName = 'ColorPicker';
+
+export { ColorPicker };
