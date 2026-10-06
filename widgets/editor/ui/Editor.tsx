@@ -27,7 +27,7 @@ export default function Editor() {
   }, [file])
 
   const handleReset = useCallback(() => {
-    if (!(file.isProcessing || file.isEmpty() || file.isFirst())) {
+    if (!(file.isProcessing || file.isEmpty() || file.isOriginal)) {
       file.reset();
     }
   }, [file])

@@ -17,6 +17,8 @@ const labels: Record<Operation, [string, string]> = {
 
 export function historyLabel(step: ImageHistoryStep, locale: 'ru' | 'en') {
   if (!step.operation) return locale === 'ru' ? 'Исходное изображение' : 'Original image';
+  if (step.operation === 'reset') return locale === 'ru' ? 'Сброс к оригиналу' : 'Reset to original';
+  if (step.operation === 'restore') return (locale === 'ru' ? 'Возврат к шагу ' : 'Restore step ') + step.args[0];
   const label = labels[step.operation][locale === 'ru' ? 0 : 1];
   const args = step.args;
   switch (step.operation) {

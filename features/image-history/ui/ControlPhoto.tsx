@@ -31,7 +31,7 @@ export const ControlPhoto = ({ file, transformations = false }: { file: FileElem
   const actions = [
     { label: tr('Отменить', 'Undo'), key: 'Ctrl+Z', icon: Undo2, disabled: file.isEmpty() || file.isFirst(), action: () => file.revert() },
     { label: tr('Повторить', 'Redo'), key: 'Ctrl+Y', icon: Redo2, disabled: file.isEmpty() || file.isLast(), action: () => file.undoRevert() },
-    { label: tr('Сбросить', 'Reset'), key: 'Ctrl+X', icon: RotateCcw, disabled: file.isEmpty() || file.isFirst(), action: () => file.reset() },
+    { label: tr('Сбросить', 'Reset'), key: 'Ctrl+X', icon: RotateCcw, disabled: file.isEmpty() || file.isOriginal, action: () => file.reset() },
   ];
   const transform = (operation: 'rotate' | 'flip', argument: number | string) => {
     const image = file.getCurrentPhoto();
