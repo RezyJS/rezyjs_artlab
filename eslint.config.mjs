@@ -7,5 +7,5 @@ export default defineConfig([
   ...nextVitals,
   ...nextTypescript,
   { files: ['**/*.ts', '**/*.tsx'], plugins: { fsd }, rules: { 'fsd/boundaries': 'error' } },
-  globalIgnores(['.next/**', 'node_modules/**', 'test-results/**', 'playwright-report/**']),
+  globalIgnores(['.next/**', 'out/**', 'node_modules/**', 'test-results/**', 'playwright-report/**']),
 ]);

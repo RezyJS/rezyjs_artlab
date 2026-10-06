@@ -1,7 +1,7 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
-import { appearanceCookie, type Appearance } from '@/shared/lib/appearance';
+import { createContext, useContext, useState, useEffect, useSyncExternalStore, type ReactNode } from 'react';
+import { appearanceCookie, parseAppearance, type Appearance } from '@/shared/lib/appearance';
 import { ArtlabTheme } from './artlab-theme';
 import { ArtlabToaster } from './sonner';
 
@@ -13,8 +13,14 @@ export function useAppearance() {
   return context;
 }
 
-export function AppearanceProvider({ initial, children }: { initial: Appearance; children: ReactNode }) {
-  const [appearance, setAppearance] = useState(initial);
+const subscribeToCookie = () => () => {};
+const serverCookie = () => undefined;
+const readAppearanceCookie = () => document.cookie.split('; ').find(cookie => cookie.startsWith(`${appearanceCookie}=`))?.slice(appearanceCookie.length + 1);
+
+export function AppearanceProvider({ initial, children, restoreFromCookie = false }: { initial: Appearance; children: ReactNode; restoreFromCookie?: boolean }) {
+  const savedCookie = useSyncExternalStore(subscribeToCookie, readAppearanceCookie, serverCookie);
+  const [updatedAppearance, setAppearance] = useState<Appearance | null>(null);
+  const appearance = updatedAppearance ?? (restoreFromCookie && savedCookie ? parseAppearance(savedCookie) : initial);
   useEffect(() => { document.documentElement.lang = appearance.locale; }, [appearance.locale]);
   const update = (patch: Partial<Appearance>) => {
     const next = { ...appearance, ...patch };
