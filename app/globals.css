@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../tailwind.config.ts";
 
 :root {
   --dark-color: #1c1d21;
@@ -62,9 +61,11 @@
   --chart-5: 340 75% 55%;
 }
 
-* {
-  margin: 0px;
-  padding: 0px;
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 @keyframes slide_from_bottom {
