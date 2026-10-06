@@ -8,6 +8,8 @@ import { filterGroups, localizeFilter, FilterPanel, HistogramPanel } from '@/fea
 import ImageLoader, { UploadMenu } from '@/features/image-upload';
 import { ExportButton } from '@/features/image-export';
 import { ControlPhoto } from '@/features/image-history';
+import { GeometryDialog } from '@/features/image-geometry';
+import { ImageViewport } from '@/features/image-viewport';
 import { useAppearance } from '@/shared/ui/appearance-provider';
 import { AppearanceControls } from '@/shared/ui/appearance-controls';
 import { AppLogo } from '@/shared/ui/app-logo';
@@ -95,8 +97,8 @@ export function DesktopEditor({ file }: { file: FileElement }) {
         </CardContent></Card>
       </aside>
       <section ref={photoPanel} className="editor-preview" aria-label={tr('Изображение', 'Image')}>
-        <Card><CardHeader><CardTitle>{tr('Изображение', 'Image')}</CardTitle></CardHeader><CardContent>
-          <div className="editor-photo-surface"><ImageLoader file={file} desktop inputRef={input} /></div>
+        <Card><CardHeader><div className="editor-photo-heading"><CardTitle>{tr('Изображение', 'Image')}</CardTitle><GeometryDialog file={file} /></div></CardHeader><CardContent>
+          <ImageViewport file={file}>{imageStyle => <ImageLoader file={file} desktop inputRef={input} imageStyle={imageStyle} interactive />}</ImageViewport>
           <ControlPhoto file={file} transformations />
         </CardContent></Card>
       </section>
